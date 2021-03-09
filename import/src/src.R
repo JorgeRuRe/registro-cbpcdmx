@@ -13,6 +13,7 @@ pacman::p_load(tidyverse, here, readxl, janitor, stringi, fuzzyjoin)
 
 # Files  ------------------------------------------------------------------
 files <- list(registro_cbpcdmx = here("import", "input", "REGISTRO INTERNO CBP 1 febrero.xlsx"),
+              colonias_cdmx = here("import", "input", "ColoniasCDMX_Oficial_Pobtot.csv"),
               registro_clean = here("import", "output", "registro_cdmx_clean"))
 
 clean_text <- function(s){
@@ -26,7 +27,7 @@ registro_cbpcdmx <- read_xlsx(files$registro_cbpcdmx) %>%
    rename(alcaldia = Municipio.Alcadia.de.la.desaparicion,
           colonia = Colonia.de.la.desaparicion)
 
-colonias_cdmx <- read_csv("import/input/ColoniasCDMX_Oficial_Pobtot.csv") %>% 
+colonias_cdmx <- read_csv(files$colonias_cdmx) %>% 
       mutate(nombre = clean_text(nombre),
              alcaldia = clean_text(alcaldia),
              cve_alc = str_pad(cve_alc, width = 3, side = "left", pad = "0")) %>% 
@@ -39,10 +40,7 @@ test_fuzzy <- registro_cbpcdmx %>%
                         max_dist = 2, distance_col = "distance") %>% 
    select(alcaldia.x, alcaldia.y, cve_alc, 
           colonia.x, colonia.y, cve_col, 
-          alcaldia.distance, colonia.distance, everything())
+          alcaldia.distance, colonia.distance, everything()) # X es registro y Y son alcaldías 
    
    
-   
-
-
-
+# fin 

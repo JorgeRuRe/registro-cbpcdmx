@@ -15,7 +15,7 @@ pacman::p_load(tidyverse, here, DataExplorer, readxl)
 # Data --------------------------------------------------------------------
 desp_cbcdmx <- read_xlsx(here("import", "input", "REGISTRO INTERNO CBP 1 febrero.xlsx"))
 
-p <- desp_cbcdmx %>% count(Colonia.de.la.desaparicion, sort = T)
+
 
 
 # Reporte  ----------------------------------------------------------------
