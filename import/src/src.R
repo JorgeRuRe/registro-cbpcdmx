@@ -16,11 +16,22 @@ files <- list(registro_cbpcdmx = here("import", "input", "REGISTRO INTERNO CBP 1
               colonias_cdmx = here("import", "input", "coloniascdmx_ids1.xlsx"),
               registro_clean = here("import", "output", "registro_cdmx_clean.rds"))
 
-clean_text <- function(s){
-      str_squish(toupper(stri_trans_general(s, "latin-ascii")))
-}
+# clean_text <- function(s){
+      #str_squish(toupper(stri_trans_general(s, "latin-ascii")))
+      # }
 
 # Data ---------------------------------------------------------------------
+
+keep_cols <- c("id", "fecha_de_inicio_de_reporte_en_la_cbpcdmx", "fuente_de_reporte", "origen_de_la_noticia",
+               "sexo", "edad", "lugar_de_nacimiento", "nacionalidad", "escolaridad", "estado_civil", 
+               "parentesco_reportante", "fecha_de_desaparicion", "año_desaparicion", "entidad_de_desaparicion",
+               "clave_municipio_desp","municipio_alcadia_de_la_desaparicion", "clave_colonia_desp",
+               "colonia_de_la_desaparicion", "circunstancias_de_la_desaparicion", "estatus_de_localizacion",
+               "condicion_localizacion", "fecha_de_localizacion", "año_localizacion", "estado_de_salud",
+               "constancia_de_localizacion", "municipio_alcaldia_de_la_localizacion", 
+               "tipo_de_lugar_de_la_localizacion", "motivo_referido_de_desaparicion", "delito_del_que_fue_victima")
+
+
 registro_cbpcdmx <- read_xlsx(files$registro_cbpcdmx) %>% 
    clean_names()
 
@@ -114,40 +125,35 @@ test <- registro_cbpcdmx  %>%
           municipio_alcadia_de_la_desaparicion = ifelse(municipio_alcadia_de_la_desaparicion == "alvaro obregon", "alvaro obregón", 
                                                         municipio_alcadia_de_la_desaparicion),
           estado_de_salud = ifelse(estado_de_salud == "buen estado general", "buen estado", 
-                                                        estado_de_salud))
+                                                        estado_de_salud),
+          municipio_alcaldia_de_la_localizacion = ifelse(municipio_alcaldia_de_la_localizacion == "ecatepec", "ecatepec de morelos", 
+                                                         municipio_alcaldia_de_la_localizacion),
+          municipio_alcaldia_de_la_localizacion = ifelse(municipio_alcaldia_de_la_localizacion == "tlalnepantla", "tlalnepantla de baz", 
+                                                         municipio_alcaldia_de_la_localizacion),
+          delito_del_que_fue_victima = case_when(
+             delito_del_que_fue_victima %in% c("asalto con violencia", "asalto o robo", "asalto y lesiones") ~ "asalto",
+             delito_del_que_fue_victima %in% c("homicidio", "homicidio o tentativa de homicidio", 
+                                               "privacion de la libertad personal y homicidio") ~ "homicidio o tentativa de homicidio",
+             delito_del_que_fue_victima == "NINGUNO" ~ "ninguno", 
+             delito_del_que_fue_victima %in% c("plagio, secuestro o tentativa de secuestro", "secuestro y extorsión",
+                                               "secuestro y robo", "tentiva de secuestro", 
+                                               "secuestro") ~ "secuestro o tentativa de secuestro",
+             delito_del_que_fue_victima %in% c("privacion ilegal de la libertad, lesiones y robo", 
+                                               "privacion ilegal de la libertad, robo") ~ "privacion ilegal de la libertad",
+             delito_del_que_fue_victima %in% c("retencion de menores", "retención de menores", "retencion y sustraccion de menores",
+                                               "sustraccion de menor", "sustraccion o retencion de nna", 
+                                               "sustraccion parental", "sustracción parental") ~ "retención o sustracción de menores",
+             delito_del_que_fue_victima == "Robo" ~ "robo",
+             T ~ delito_del_que_fue_victima)) %>% 
+          rename(clave_municipio_desp = clave_municipio,
+                 clave_colonia_desp = clave_colonia) %>% 
+             select(all_of(keep_cols))
 
 
-# falta limpiar 1) municipio_alcadia_de_la_localizacion; 2) motivo_referido_de_desaparicion 3) delito_del_que_fue_victima
-          
-   
 
-p %>% summarise(suma = sum(n))
-test %>% count(origen_de_la_noticia, sort = T) %>% 
-   summarise(suma = sum(n))
-
-
-registro_cbpcdmx %>% count(parentesco_reportante, sort = T) %>% 
-   na.omit() %>% 
-   summarise(suma = sum(n))
-
-
-
-colonias_cdmx <- read_csv(files$colonias_cdmx) %>% 
-      mutate(nombre = clean_text(nombre),
-             alcaldia = clean_text(alcaldia),
-             cve_alc = str_pad(cve_alc, width = 3, side = "left", pad = "0")) %>% 
-      rename(colonia = nombre)
-
-
-test_fuzzy <- registro_cbpcdmx %>% 
-   filter(!is.na(alcaldia) & !is.na(colonia)) %>% 
-   stringdist_left_join(colonias_cdmx, by = c("alcaldia", "colonia"), method = "lv",
-                        max_dist = 2, distance_col = "distance") %>% 
-   select(alcaldia.x, alcaldia.y, cve_alc, 
-          colonia.x, colonia.y, cve_col, 
-          alcaldia.distance, colonia.distance, everything()) # X es registro y Y son alcaldías 
-   
+# falta limpiar tipo de lugar de localización 
    
 # fin 
 
 
+table(test$tipo_de_lugar_de_la_localizacion)
