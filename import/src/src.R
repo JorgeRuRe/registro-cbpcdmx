@@ -13,7 +13,6 @@ pacman::p_load(tidyverse, here, readxl, janitor, stringi, fuzzyjoin, lubridate)
 
 # Files  ------------------------------------------------------------------
 files <- list(registro_cbpcdmx = here("import", "input", "REGISTRO INTERNO CBP 1 mayo con claves.xlsx"),
-              colonias_cdmx = here("import", "input", "coloniascdmx_ids1.xlsx"),
               registro_clean = here("import", "output", "registro_cdmx_clean.rds"))
 
 # clean_text <- function(s){
@@ -32,12 +31,11 @@ keep_cols <- c("id", "fecha_de_inicio_de_reporte_en_la_cbpcdmx", "fuente_de_repo
                "tipo_de_lugar_de_la_localizacion", "motivo_referido_de_desaparicion", "delito_del_que_fue_victima")
 
 
-registro_cbpcdmx <- read_xlsx(files$registro_cbpcdmx) %>% 
-   clean_names()
 
-
-test <- registro_cbpcdmx  %>% 
-   mutate(año_desaparicion = lubridate::year(fecha_de_desaparicion),
+clean_desaparicion <- function(files) {
+   df <- read_xlsx(files$registro_cbpcdmx) %>% 
+   clean_names() %>% 
+      mutate(año_desaparicion = lubridate::year(fecha_de_desaparicion),
           año_localizacion = lubridate::year(fecha_de_localizacion),
           clave_municipio = str_pad(clave_municipio, width = 2, side = "left", pad = "0"),
           condicion_localizacion = replace_na(condicion_localizacion, "sigue desaparecida"),
@@ -130,6 +128,16 @@ test <- registro_cbpcdmx  %>%
                                                          municipio_alcaldia_de_la_localizacion),
           municipio_alcaldia_de_la_localizacion = ifelse(municipio_alcaldia_de_la_localizacion == "tlalnepantla", "tlalnepantla de baz", 
                                                          municipio_alcaldia_de_la_localizacion),
+          tipo_de_lugar_de_la_localizacion = case_when(
+             tipo_de_lugar_de_la_localizacion %in% c("a bordo de vehiculo particular", 
+                                                     "dentro de un vehiculo") ~ "a bordo de un vehículo",
+             tipo_de_lugar_de_la_localizacion %in% c("en casa de un amigo(a)", "en casa de un familiar", 
+                                                     "en casa de una amistad o conocido") ~ "en casa de amigo o familiar",
+             tipo_de_lugar_de_la_localizacion %in% c("en su domicilio", "en su propio domicilio") ~ "domicilio de la persona",
+             tipo_de_lugar_de_la_localizacion %in% c("en un ministerio publico", "en un ministerio publico o lugar administrativo",
+                                                     "en una agencia del ministerio publico") ~ "Agencia del ministerio público",
+             tipo_de_lugar_de_la_localizacion == "en una central camionera" ~ "en una central o estacion de transporte",
+             T ~ tipo_de_lugar_de_la_localizacion), 
           delito_del_que_fue_victima = case_when(
              delito_del_que_fue_victima %in% c("asalto con violencia", "asalto o robo", "asalto y lesiones") ~ "asalto",
              delito_del_que_fue_victima %in% c("homicidio", "homicidio o tentativa de homicidio", 
@@ -148,12 +156,24 @@ test <- registro_cbpcdmx  %>%
           rename(clave_municipio_desp = clave_municipio,
                  clave_colonia_desp = clave_colonia) %>% 
              select(all_of(keep_cols))
+   
+   return(df)
+
+ } 
 
 
 
-# falta limpiar tipo de lugar de localización 
+main <- function(){
+   print("working on registro desaparición cdmx")
+   desp_cdmx <- clean_desaparicion(files)
+   
+   print("writing fosas gto")
+   saveRDS(desp_cdmx, files$registro_clean) 
+   }
+
+main()
    
 # fin 
 
 
-table(test$tipo_de_lugar_de_la_localizacion)
+
