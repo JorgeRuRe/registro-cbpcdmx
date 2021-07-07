@@ -127,18 +127,18 @@ walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_desp_estatus, 
 # escolaridad 
 
 registro_cbpcdmx_clean %>% 
-      group_by(escolaridad) %>% 
-      summarize(total=n()) %>% 
-      mutate(den=sum(total, na.rm=T)) %>%
-      ungroup() %>%
-      mutate(per=round((total/den)*100, 1)) %>% 
-      na.omit() %>% 
-      arrange(-per) %>% 
-      ggplot(aes(fill = escolaridad, area = per, label = paste0(escolaridad, "\n", per))) +
+   group_by(escolaridad) %>% 
+   na.omit() %>% 
+   summarize(total=n()) %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 1)) %>% 
+   arrange(-per) %>% 
+   ggplot(aes(fill = escolaridad, area = per, label = paste0(escolaridad, "\n", per))) +
       geom_treemap() +
       geom_treemap_text( aes(label=paste0(escolaridad, "\n", per, "%")), colour ="black", 
-                         place = "centre", size = 10.5, face = "bold",
-                        family = "Courier New") +
+                         place = "centre", size = 9, face = "bold",
+                        family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
       labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
            subtitle = "En porcentaje") +
