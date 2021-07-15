@@ -137,6 +137,8 @@ clean_desaparicion <- function(files) {
              tipo_de_lugar_de_la_localizacion %in% c("en un ministerio publico", "en un ministerio publico o lugar administrativo",
                                                      "en una agencia del ministerio publico") ~ "Agencia del ministerio público",
              tipo_de_lugar_de_la_localizacion == "en una central camionera" ~ "en una central o estacion de transporte",
+             tipo_de_lugar_de_la_localizacion == "en un centro hospitalario" ~ "en centro de salud u hospital",
+             tipo_de_lugar_de_la_localizacion == "en una institucion para adicciones" ~ "en un centro de adicciones",
              T ~ tipo_de_lugar_de_la_localizacion), 
           delito_del_que_fue_victima = case_when(
              delito_del_que_fue_victima %in% c("asalto con violencia", "asalto o robo", "asalto y lesiones") ~ "asalto",

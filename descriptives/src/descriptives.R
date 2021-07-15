@@ -18,7 +18,9 @@ files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_c
               shp_cdmx = here("descriptives", "input", "coloniascdmx.shp"),
               perfiles_desp = here("descriptives", "output", "perfiles_desp."),
               perfiles_desp_estatus = here("descriptives", "output", "perfiles_desp_estatus."),
-              tree_map_escolaridad = here("descriptives", "output", "escolaridad_desp."))
+              tree_map_escolaridad = here("descriptives", "output", "escolaridad_desp."),
+              tree_map_civil = here("descriptives", "output", "civil_desp."),
+              lugar_localizacion = here("descriptives", "output", "lugar_localizacion."))
               
 
 
@@ -40,7 +42,7 @@ shp_cdmx <- st_read(files$shp_cdmx) %>%
 
 
 
-# Análisis ----------------------------------------------------------------
+# Análisis quiénes son ----------------------------------------------------------------
 
 # quiénes son sin status 
 registro_cbpcdmx_clean %>% 
@@ -138,12 +140,16 @@ walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_desp_estatus, 
 # escolaridad 
 
 registro_cbpcdmx_clean %>% 
-   group_by(escolaridad) %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(condicion_localizacion, escolaridad) %>% 
    summarize(total=n()) %>% 
    na.omit() %>% 
    mutate(den=sum(total, na.rm=T)) %>%
    ungroup() %>%
-   mutate(per=round((total/den)*100, 1)) %>% 
+   mutate(per=round((total/den)*100, 0)) %>% 
    arrange(-per) %>% 
    ggplot(aes(fill = escolaridad, area = per, label = paste0(escolaridad, "\n", per))) +
       geom_treemap() +
@@ -151,8 +157,9 @@ registro_cbpcdmx_clean %>%
                          place = "centre", size = 12, face = "bold",
                         family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
+   facet_wrap(~ condicion_localizacion) +
       labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
-           subtitle = "En porcentaje") +
+           subtitle = "En porcentaje y con base en estatus de localización") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
@@ -166,66 +173,66 @@ walk(devices, ~ ggsave(filename = file.path(paste0(files$tree_map_escolaridad, .
 
 
 
-# mapas desigualdad 
+# Estado civil
+registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                          levels = c("con vida",
+                                                     "sin vida",
+                                                     "sigue desaparecida"))) %>% 
+   group_by(sexo, estado_civil) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+   arrange(-per) %>% 
+   ggplot(aes(fill = estado_civil, area = per, label = paste0(estado_civil, "\n", per))) +
+   geom_treemap() +
+   geom_treemap_text( aes(label=paste0(estado_civil, "\n", per, "%")), colour ="black", 
+                      place = "centre", size = 12, face = "bold",
+                      family = "Courier New Bold") +
+   scale_fill_brewer(palette = "Set3") +
+   facet_wrap(~ sexo) +
+   labs(title= "Estado civil de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
+        subtitle = "En porcentaje y con base en su sexo") +
+   theme_minimal(base_family = "Courier New") +
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         plot.title = element_text(face = "bold", hjust = 0.5),
+         plot.subtitle = element_text(hjust = 0.5),
+         axis.text.y = element_blank(),
+         axis.text.x = element_text(face = "bold")) +
+   theme(legend.position = "none") 
 
-cases_per_colonia <- registro_cbpcdmx_clean %>%
-   group_by(clave_colonia_desp) %>%
-   count(clave_municipio_desp) 
-
-
-
-# Datos para mapa
-mapa_desp_cdmx <- shp_cdmx %>%
-   left_join(cases_per_colonia,
-             by = c("cve_col" = "clave_colonia_desp")) %>% 
-   mutate(tasa_desp = n*(10000/habitantes),
-          valor_ids = as.numeric(valor_ids)) 
-   
-
-
-
-centroides <- st_coordinates(st_centroid(mapa_desp_cdmx)) %>% as.tibble()
-
-
-# create classes
-bi_map <- bi_class(mapa_desp_cdmx, x = valor_ids, y =  tasa_desp, style = "quantile", dim = 2) 
-
-bi_map <- bi_map %>% 
-   filter(bi_class != "1-NA") %>% 
-   filter(bi_class != "2-NA") %>% 
-   filter(bi_class != "NA-NA")
-
-# create map
-map <- ggplot() +
-   geom_sf(data = bi_map, mapping = aes(fill = bi_class), color = "grey", size = 0.2, show.legend = FALSE) +
-   bi_scale_fill(pal = "DkBlue", dim = 2) +
-   labs(
-      title = "Tasas de desaparición de personas en CDMX Y estrato social",
-      subtitle = "Nivel Colonia"
-   ) +
-   bi_theme() +
-   theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 12),
-         plot.subtitle = element_text(hjust = 0.5, face = "bold", size = 10),
-         plot.caption = element_text(hjust = 0.5, size = 10)) 
-
-map
-
-legend <- bi_legend(pal = "DkBlue",
-                    dim = 2,
-                    xlab = "Estrato Socioeconómico",
-                    ylab = "Tasa de desaparición por cada 10 mil habitantes",
-                    size = 7)
+walk(devices, ~ ggsave(filename = file.path(paste0(files$tree_map_civil, .x)),
+                       device = .x, width = 14, height = 10))
 
 
-finalPlot <- ggdraw() +
-   draw_plot(map, 0, 0, 1, 1) +
-   draw_plot(legend, 0.2, .65, 0.2, 0.2)
+# Cómo se localizan  ------------------------------------------------------
 
-finalPlot
+# lugar de localizacion 
+registro_cbpcdmx_clean %>% 
+   group_by(tipo_de_lugar_de_la_localizacion) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 2)) %>% 
+   mutate(tipo_de_lugar_de_la_localizacion = reorder(tipo_de_lugar_de_la_localizacion, per)) %>%
+   ggplot(aes(tipo_de_lugar_de_la_localizacion, per)) +
+   geom_col(fill = "#F85A3E") +
+   geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
+   coord_flip() +
+   labs(title= "Lugar de localización de las personas reportadas como desaparecidas \n ante la Comisión de Búsqueda de Personas de la CDMX",
+        x = NULL, y = "porcentaje") +
+   theme_minimal(base_family = "Courier New") +
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         plot.title = element_text(face = "bold", hjust = 0.5),
+         plot.subtitle = element_text(hjust = 0.5),
+         axis.text.x = element_text(face = "bold")) +
+   theme(legend.position = "none") 
+
+walk(devices, ~ ggsave(filename = file.path(paste0(files$lugar_localizacion, .x)),
+                       device = .x, width = 14, height = 10))
 
 
-
-
-# FIN 
-
-
+# FIN  
