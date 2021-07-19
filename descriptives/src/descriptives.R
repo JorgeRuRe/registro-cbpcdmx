@@ -8,7 +8,8 @@
 
 # Paquetes ----------------------------------------------------------------
 if(!require('pacman')) {install.packages('pacman')}
-pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolorbrewer, readxl,  biscale, cowplot)
+pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolorbrewer, readxl,  biscale, cowplot, lubridate)
+
 
 
 
@@ -208,6 +209,15 @@ walk(devices, ~ ggsave(filename = file.path(paste0(files$tree_map_civil, .x)),
 
 
 # Cómo se localizan  ------------------------------------------------------
+
+# Fechas 
+registro_cbpcdmx_clean %>% 
+   mutate(dif_time = difftime(registro_cbpcdmx_clean$fecha_de_desaparicion,registro_cbpcdmx_clean$fecha_de_localizacion,units=c("days"))) %>%
+   group_by(sexo, condicion_localizacion) %>% 
+   filter(condicion_localizacion != "sigue desaparecida") %>% 
+   summarise(mean = mean(dif_time, na.rm = T)) 
+
+
 
 # lugar de localizacion 
 registro_cbpcdmx_clean %>% 
