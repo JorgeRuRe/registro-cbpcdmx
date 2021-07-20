@@ -326,9 +326,9 @@ p1 <- registro_cbpcdmx_clean %>%
    geom_col(fill = "#F85A3E") +
    geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
    coord_flip() +
-   labs(title= NA,
+   labs(title= NULL,
         subtitle = "con vida",
-        x = NULL, y = "porcentaje") +
+        x = NULL, y = NULL) +
    theme_minimal(base_family = "Courier New") +
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
          plot.title = element_text(face = "bold", hjust = 0.5),
@@ -350,7 +350,7 @@ p2 <- registro_cbpcdmx_clean %>%
    geom_col(fill = "#F85A3E") +
    geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
    coord_flip() +
-   labs(title= NA,
+   labs(title= NULL,
         subtitle = "sin vida",
         x = NULL, y = "porcentaje") +
    theme_minimal(base_family = "Courier New") +
@@ -360,7 +360,7 @@ p2 <- registro_cbpcdmx_clean %>%
          axis.text.x = element_text(face = "bold")) +
    theme(legend.position = "none") 
 
-patchwork <- p1 + p2 
+patchwork <- p1 / p2 
 patchwork + 
    plot_annotation(
    title = "Lugar de localización de las personas reportadas como desaparecidas \n ante la Comisión de Búsqueda de Personas de la CDMX"
