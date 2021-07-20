@@ -8,7 +8,8 @@
 
 # Paquetes ----------------------------------------------------------------
 if(!require('pacman')) {install.packages('pacman')}
-pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolorbrewer, readxl,  biscale, cowplot, lubridate)
+pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolorbrewer, readxl,
+               biscale, cowplot, lubridate, patchwork)
 
 
 
@@ -311,8 +312,33 @@ registro_cbpcdmx_clean %>%
 
 
 
-# lugar de localizacion 
-registro_cbpcdmx_clean %>% 
+# lugar de localizacion con vida 
+p1 <- registro_cbpcdmx_clean %>% 
+   filter(condicion_localizacion == "con vida") %>% 
+   group_by(tipo_de_lugar_de_la_localizacion) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 2)) %>% 
+  mutate(tipo_de_lugar_de_la_localizacion = reorder(tipo_de_lugar_de_la_localizacion, per)) %>%
+   ggplot(aes(tipo_de_lugar_de_la_localizacion, per)) +
+   geom_col(fill = "#F85A3E") +
+   geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
+   coord_flip() +
+   labs(title= NA,
+        subtitle = "con vida",
+        x = NULL, y = "porcentaje") +
+   theme_minimal(base_family = "Courier New") +
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         plot.title = element_text(face = "bold", hjust = 0.5),
+         plot.subtitle = element_text(hjust = 0.5),
+         axis.text.x = element_text(face = "bold")) +
+   theme(legend.position = "none") 
+
+# lugar de localizacion sin vida 
+p2 <- registro_cbpcdmx_clean %>% 
+   filter(condicion_localizacion == "sin vida") %>% 
    group_by(tipo_de_lugar_de_la_localizacion) %>% 
    summarize(total=n()) %>% 
    na.omit() %>% 
@@ -324,7 +350,8 @@ registro_cbpcdmx_clean %>%
    geom_col(fill = "#F85A3E") +
    geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
    coord_flip() +
-   labs(title= "Lugar de localización de las personas reportadas como desaparecidas \n ante la Comisión de Búsqueda de Personas de la CDMX",
+   labs(title= NA,
+        subtitle = "sin vida",
         x = NULL, y = "porcentaje") +
    theme_minimal(base_family = "Courier New") +
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -332,6 +359,13 @@ registro_cbpcdmx_clean %>%
          plot.subtitle = element_text(hjust = 0.5),
          axis.text.x = element_text(face = "bold")) +
    theme(legend.position = "none") 
+
+patchwork <- p1 + p2 
+patchwork + 
+   plot_annotation(
+   title = "Lugar de localización de las personas reportadas como desaparecidas \n ante la Comisión de Búsqueda de Personas de la CDMX"
+   ) &
+   theme(plot.title = element_text(face = "bold", hjust = 0.5))
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$lugar_localizacion, .x)),
                        device = .x, width = 14, height = 10))
