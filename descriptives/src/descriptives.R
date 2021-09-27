@@ -18,6 +18,7 @@ pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolo
 files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean.rds"),
               proyecciones_conapo = here("descriptives", "input", "base_municipios_final_datos_01.csv"),
               shp_cdmx = here("descriptives", "input", "09mun.shp"),
+              casos_registrados = here("descriptives", "output", "casos_registrados."),
               perfiles_desp = here("descriptives", "output", "perfiles_desp."),
               perfiles_desp_estatus = here("descriptives", "output", "perfiles_desp_estatus."),
               tree_map_escolaridad = here("descriptives", "output", "escolaridad_desp."),
@@ -65,6 +66,41 @@ poblacion_conapo <- read_csv(files$proyecciones_conapo) %>%
 
 
 
+# Periodos de registro ----------------------------------------------------
+
+registro_cbpcdmx_clean %>% 
+   group_by(año_desaparicion) %>%  
+   mutate(año_desaparicion = as.character(año_desaparicion),
+          año_desaparicion = case_when(año_desaparicion %in% 1966:2013 ~ "previo a 2013", 
+                                       T ~ año_desaparicion),
+          año_desaparicion = factor(año_desaparicion,
+                              levels = c("previo a 2013",
+                                         "2014",
+                                         "2015",
+                                         "2016",
+                                         "2017",
+                                         "2018",
+                                         "2019",
+                                         "2020",
+                                         "2021"))) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   ggplot(aes(año_desaparicion, total)) +
+   geom_col(fill = "#F85A3E") +
+   geom_label(aes(label= total), family="Courier New") +
+   theme_minimal(base_family = "Courier New") +
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         plot.title = element_text(face = "bold", hjust = 0.5),
+         plot.subtitle = element_text(hjust = 0.5),
+         axis.text.x = element_text(face = "bold")) +
+   labs(y = NULL, x= NULL, 
+        title = "Casos de personas desaparecidas registradas por la \n Comisión de Búsqueda de personas de la CDMX")
+   
+   
+walk(devices, ~ ggsave(filename = file.path(paste0(files$casos_registrados, .x)),
+                       device = .x, width = 14, height = 10))
+
+
 
 # Análisis quiénes son ----------------------------------------------------------------
 
@@ -99,7 +135,7 @@ registro_cbpcdmx_clean %>%
       labs(title="Edad y sexo de personas desaparecidas en la Ciudad de México",
            subtitle = "Registradas por la Comisión de Búsqueda de la CDMX",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black")+
+      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
