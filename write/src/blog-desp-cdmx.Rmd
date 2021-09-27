@@ -1,0 +1,63 @@
+---
+title: "Desaparecer en la Ciudad de México"
+author: "Jorge Ruiz"
+date: "9/27/2021"
+output: word_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE,
+                      cache = FALSE,
+                      fig.pos = 'ht'
+                     )
+```
+
+
+```{r}
+# Paquetes ----------------------------------------------------------------
+if(!require('pacman')) {install.packages('pacman')}
+pacman::p_load(tidyverse, sf, here)
+
+```
+
+
+```{r}
+# Files -------------------------------------------------------------------
+files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean.rds"),
+              shp_cdmx = here("descriptives", "input", "09mun.shp"),
+              casos_registrados = here("descriptives", "output", "casos_registrados."),
+              perfiles_desp = here("descriptives", "output", "perfiles_desp."),
+              perfiles_desp_estatus = here("descriptives", "output", "perfiles_desp_estatus."),
+              tree_map_escolaridad = here("descriptives", "output", "escolaridad_desp."),
+              tree_map_civil = here("descriptives", "output", "civil_desp."),
+              mapa_desp_totales = here("descriptives", "output", "mapa_desp_totales."),
+              mapa_desp_tasas = here("descriptives", "output", "mapa_desp_tasas."),
+              lugar_localizacion = here("descriptives", "output", "lugar_localizacion."))
+```
+
+
+```{r}
+# Datos 
+registro_cbpcdmx_clean <- read_rds(files$registro_cbpcdmx_clean)
+```
+
+
+# Introducción 
+
+La desaparición de personas en la Ciudad de México es un fenómeno que ha estado presente a lo largo de los años. Sin embargo, han existido retos para documentarlo y analizarlo, sobre todo por las diferentes fuentes que registran información sobre los hechos, así como de otros factores sociales y políticos que impactan en el proceso de generación de estos datos. 
+
+Existen por lo menos cinco fuentes que registran información sobre casos de desaparición en la CDMX a nivel nacional y local. Estos son: 1) los casos de personas desaparecidas observadas dentro del Registro Nacional de Personas Desaparecidas y No localizadas de la Comisión Nacional de Búsqueda de Personas Desaparecidas (CNB); 2) las llamadas de posibles casos reportados a las líneas de LOCATEL; 3) los casos que son monitoreados por el C5 de la CDMX; 4) el registro de personas desaparecidas de la Fiscalía de Investigación y Persecución de los Delitos en Materia de Desaparición Forzada de Personas y la Desaparición Cometida por Particulares y Búsqueda de Personas Desaparecidas de la CDMX (FIPEDE) y 5) el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX).
+
+Los registros anteriores tienen diferentes objetivos y procesos para recopilar información sobre personas desaparecidas (monitoreo en materia de seguridad, investigación del delito o búsqueda de personas). Por esta razón, los casos registrados y el periodo de actualización y seguimiento de éstos no son los mismos; los campos o variables de información no están homologados y el acceso a la información de cada uno puede ser mayor o menor, además de que no existe un sistema que unifique la información de todos. Esto ejemplifica el reto y la dificultad de generar diagnósitcos sobre la desaparición de personas en la entidad. 
+
+Teniendo en cuenta lo mencionado, este artículo realizará una primera aproximación al fenómeno de la desaparición en la CDMX analizando el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX. A continuación se presenta una discusión detallada sobre cómo surge este registro, así como de sus alcances y limitaciones. 
+
+# Contexto de los datos del Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX
+
+
+
+
+
