@@ -1,7 +1,7 @@
 ---
-title: "Desaparecer en la Ciudad de México"
-author: "Jorge Ruiz"
-date: "9/27/2021"
+title: "Desaparecer en la Ciudad de México: una aproximación al fenómeno desde el Registro de Personas Desaparecidas de la Comisión de Búsqueda de la CDMX"
+author: "Jorge Ruiz Reyes"
+date: "10/26/2021"
 output: word_document
 ---
 
@@ -28,34 +28,546 @@ pacman::p_load(tidyverse, sf, here)
 # Files -------------------------------------------------------------------
 files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean.rds"),
               shp_cdmx = here("descriptives", "input", "09mun.shp"),
-              casos_registrados = here("descriptives", "output", "casos_registrados."),
-              perfiles_desp = here("descriptives", "output", "perfiles_desp."),
-              perfiles_desp_estatus = here("descriptives", "output", "perfiles_desp_estatus."),
-              tree_map_escolaridad = here("descriptives", "output", "escolaridad_desp."),
-              tree_map_civil = here("descriptives", "output", "civil_desp."),
-              mapa_desp_totales = here("descriptives", "output", "mapa_desp_totales."),
-              mapa_desp_tasas = here("descriptives", "output", "mapa_desp_tasas."),
-              lugar_localizacion = here("descriptives", "output", "lugar_localizacion."))
+              proyecciones_conapo = here("descriptives", "input", "base_municipios_final_datos_01.csv"),
+              casos_registrados = here("descriptives", "output", "casos_registrados.png"),
+              perfiles_desp = here("descriptives", "output", "perfiles_desp.png"),
+              perfiles_desp_estatus = here("descriptives", "output", "perfiles_desp_estatus.png"),
+              tree_map_escolaridad = here("descriptives", "output", "escolaridad_desp.png"),
+              tree_map_civil = here("descriptives", "output", "civil_desp.png"),
+              mapa_desp_totales = here("descriptives", "output", "mapa_desp_totales.png"),
+              mapa_desp_tasas = here("descriptives", "output", "mapa_desp_tasas.png"),
+              lugar_localizacion = here("descriptives", "output", "lugar_localizacion.png"))
 ```
 
 
 ```{r}
 # Datos 
 registro_cbpcdmx_clean <- read_rds(files$registro_cbpcdmx_clean)
+shp_cdmx <- st_read(files$shp_cdmx)
+poblacion_conapo <- read_csv(files$proyecciones_conapo) %>% 
+   filter(NOM_ENT == "Ciudad de MÈxico") %>% 
+   filter(`A—O` == 2021) %>% 
+   group_by(CLAVE_ENT, MUN, `A—O`) %>% 
+   summarise(total_poblacion = sum(POB)) %>% 
+   ungroup() %>% 
+   mutate(
+      CVEGEO = case_when(
+         MUN == "¡lvaro ObregÛn" ~ "09010", 
+         MUN == "Azcapotzalco" ~ "09002", 
+         MUN == "Benito Ju·rez" ~ "09014", 
+         MUN == "Coyoac·n" ~ "09003", 
+         MUN == "Cuajimalpa de Morelos" ~ "09004", 
+         MUN == "CuauhtÈmoc" ~ "09015", 
+         MUN == "Gustavo A. Madero" ~ "09005", 
+         MUN == "Iztacalco" ~ "09006", 
+         MUN == "Iztapalapa" ~ "09007", 
+         MUN == "La Magdalena Contreras" ~ "09008", 
+         MUN == "Miguel Hidalgo" ~ "09016", 
+         MUN == "Milpa Alta" ~ "09009", 
+         MUN == "Tlalpan" ~ "09012", 
+         MUN == "Tl·huac" ~ "09011", 
+         MUN == "Venustiano Carranza" ~ "09017", 
+         MUN == "Xochimilco" ~ "09013", 
+      ))
 ```
 
 
 # Introducción 
 
-La desaparición de personas en la Ciudad de México es un fenómeno que ha estado presente a lo largo de los años. Sin embargo, han existido retos para documentarlo y analizarlo, sobre todo por las diferentes fuentes que registran información sobre los hechos, así como de otros factores sociales y políticos que impactan en el proceso de generación de estos datos. 
+La desaparición de personas en la Ciudad de México (CDMX) es un fenómeno que ha estado presente durante décadas. El primer caso de desaparición registrado por las autoridades en la CDMX tiene fecha del año de 1966. Asimismo, los hechos han alcanzado una magnitud mayor en años recientes.  
+
+Ante esto, han exisitido diversos esfuerzos por atender y visibilizar la problemática. A mediados del año de 2019 el gobierno de la CDMX anunció la creación de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX), la cual tiene el objetivo de ejecutar y da seguimiento a las acciones de búsqueda de Personas Desaparecidas en la CDMX. Asimismo, a finales del mismo año se publicó la Ley de Búsqueda de Personas de la CDMX (LBPCDMX), la cual establece las acciones y facultades para la búsqueda, investigación e identificación de las autoridades encargadas de atender la problemática. De igual forma, a mediados del año 2021 inciaron las sesiones y conformación de los grupos de trabajo de las 14 autoridades que conforman el sistema de búsqueda de personas en la entidad. 
+
+A pesar de esto, familias de personas desaparecidas y sociedad civil han mencionado que las acciones de búsqueda e investiación han sido insuficientes en la entidad por factores como la falta de coordinación entre las autoridades, la propia complejidad geográfica de la ciudad, la falta de visibilización de los casos ante otros fenómenos sociales y políticos y la ausencia de planeación y diagnósticos por parte de las autoridades. Específicamente frente a la falta de datos para conocer las zonas con mayor inicidencia, periodos y perfiles de personas desaparecidas. 
+
+Teniendo en cuenta lo anterior, este artículo realizará una primera aproximación al fenómeno de la desaparición en la CDMX analizando el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX. Es necesario recalcar desde un incio que frente a las limitaciones de los datos, no se está dando un panorama completo de la desaparición, ni de los patrones específicos de los hechos. Por el contrario, solo se están dando a conocer los patrones de generación de información de una sola fuente que solo puede observar una fracción del fenómeno en su totalidad.          
+
+A continuación se presenta una discusión detallada sobre cómo surge este registro, así como de sus alcances y limitaciones. 
+
+
+# Contexto de los datos del Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX
+
+
+```{r}
+# inline code 
+total_casos <- registro_cbpcdmx_clean %>% distinct(id) %>% nrow
+
+per_origen_noticia <- registro_cbpcdmx_clean %>% 
+      group_by(fuente_de_reporte) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(fuente_de_reporte == "noticia") %>% 
+      select(per)
+
+per_origen_reporte <- registro_cbpcdmx_clean %>% 
+      group_by(fuente_de_reporte) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(fuente_de_reporte == "reporte") %>% 
+      select(per)
+
+per_origen_portal <- registro_cbpcdmx_clean %>% 
+      group_by(origen_de_la_noticia) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(origen_de_la_noticia == "portal comision búsqueda cdmx") %>% 
+      select(per)
+
+per_origen_autoridadescdmx <- registro_cbpcdmx_clean %>% 
+      group_by(origen_de_la_noticia) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(origen_de_la_noticia == "autoridades en general") %>% 
+      select(per)
+
+per_origen_colectivos <- registro_cbpcdmx_clean %>% 
+      group_by(origen_de_la_noticia) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(origen_de_la_noticia == "colectivos de familiares") %>% 
+      select(per)
+
+per_origen_sc <- registro_cbpcdmx_clean %>% 
+      group_by(origen_de_la_noticia) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(origen_de_la_noticia == "sociedad civil y organismos internacionales") %>% 
+      select(per)
+
+```
 
 Existen por lo menos cinco fuentes que registran información sobre casos de desaparición en la CDMX a nivel nacional y local. Estos son: 1) los casos de personas desaparecidas observadas dentro del Registro Nacional de Personas Desaparecidas y No localizadas de la Comisión Nacional de Búsqueda de Personas Desaparecidas (CNB); 2) las llamadas de posibles casos reportados a las líneas de LOCATEL; 3) los casos que son monitoreados por el C5 de la CDMX; 4) el registro de personas desaparecidas de la Fiscalía de Investigación y Persecución de los Delitos en Materia de Desaparición Forzada de Personas y la Desaparición Cometida por Particulares y Búsqueda de Personas Desaparecidas de la CDMX (FIPEDE) y 5) el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX).
 
 Los registros anteriores tienen diferentes objetivos y procesos para recopilar información sobre personas desaparecidas (monitoreo en materia de seguridad, investigación del delito o búsqueda de personas). Por esta razón, los casos registrados y el periodo de actualización y seguimiento de éstos no son los mismos; los campos o variables de información no están homologados y el acceso a la información de cada uno puede ser mayor o menor, además de que no existe un sistema que unifique la información de todos. Esto ejemplifica el reto y la dificultad de generar diagnósitcos sobre la desaparición de personas en la entidad. 
 
-Teniendo en cuenta lo mencionado, este artículo realizará una primera aproximación al fenómeno de la desaparición en la CDMX analizando el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX. A continuación se presenta una discusión detallada sobre cómo surge este registro, así como de sus alcances y limitaciones. 
+El registro de personas desaparecidas de la CBPCDMX se compone de información las autoridades de la Administración Pública Local y la Fiscalía General de la CDMX, así como de noticias o reportes que recibe directamente la comisión. Específicamente, su objetivo es el de proporcionar apoyo en las investigaciones para su búsqueda, localización e identificación en la entidad. 
 
-# Contexto de los datos del Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX
+La CBPCDMX proporciona una [versión pública](https://comisiondebusqueda.cdmx.gob.mx/CBP/rpd/version-publica) con 28 campos o variables de los datos que recopila. Esta fue una decisión de la unidad de análisis de contexto de la CBPCDMX por proporcionar datos abiertos a la ciudadanía sobre los hechos. El último corte de información proporcionado correspode a julio de 2021^[Para este análisis se tomaron los datos del corte de mayo de 2021, ya que algunos campos como las colonias donde se reportaron las desapariciones tuvieron que ser revisadas manualmente ante la falta de homologación de los datos.], por lo que aún estamos a la espera de las actualizaciones recientes de estos datos. 
+
+Para el corte de información analizado, el registro de la CBPCDMX contaba con `r total_casos` de personas desaparecidas en la CDMX. De este total, `r per_origen_noticia`%  de los casos fueron registrados con base en una noticia en algún medio impreso o electrónico que hablaba sobre la desaparición de una persona en la entidad, mientras que `r per_origen_reporte`% de los casos fueron registrados por reportes realizados directamente a la comisión. 
+
+Si desagregamos esta información aún más, se puede constatar que, efectivamente, `r per_origen_portal`% de los casos fueron registrados directamente por personal de la CBPCDMX en su portal de información. La segunda fuente que ha proporcionado mayor información al registro de la CBPCDMX son casos que han observado otras instituciones de la CDMX como las fiscalías especializdas. Estos corresponden a `r per_origen_autoridadescdmx`% del total de casos. Sin embargo, es importante recalcar que estos casos no fueron notificados directamente a la CBPCDMX, sino que la institución tuvo conocimiento de éstos por noticias en otros medios, lo cual habla de la falta de coordinación y comunicación entre las autoridades locales. 
+
+También destaca que del total de casos, solo `r per_origen_colectivos`% corresponden a casos dados a concer por colectivos de familiares en búsqueda y `r per_origen_sc`% por sociedad civil. Esto podría indicar que pocas personas conocen o tienen acceso a mecanismos para notificar los hechos de la desaparición a la CBPCDMX. 
+
+# Quiénes desaparecen en la CDMX
+
+```{r}
+# inline code 
+
+desp_2020 <- registro_cbpcdmx_clean %>% 
+      group_by(año_desaparicion) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(año_desaparicion == 2020) %>% 
+      select(per)
+
+desp_2021 <- registro_cbpcdmx_clean %>% 
+      group_by(año_desaparicion) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(año_desaparicion == 2021) %>% 
+      select(per)
+
+perfiles_hombre_uno <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más"))) %>% 
+      group_by(sexo, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(grupo_edad == "De 30 a 44 años" & sexo == "hombre") %>% 
+      select(per)
+
+perfiles_hombre_dos <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más"))) %>% 
+      group_by(sexo, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(grupo_edad == "De 45 a 59 años" & sexo == "hombre") %>% 
+      select(per)
+
+
+perfiles_mujer_uno <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más"))) %>% 
+      group_by(sexo, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(grupo_edad == "De 12 a 17 años" & sexo == "mujer") %>% 
+      select(per)
+
+perfiles_mujer_dos <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más"))) %>% 
+      group_by(sexo, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(grupo_edad == "De 30 a 44 años" & sexo == "mujer") %>% 
+      select(per)
+```
+
+La CBPCDMX cuenta con casos registrados de personas desaparecidas entre los años de 1966-2021.
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 1"}
+knitr::include_graphics(files$casos_registrados)
+```
+
+Los años de 2020(`r desp_2020`%) y 2021 (`r desp_2021`%) son los años con la mayor cantidad de observaciones. Sin embargo, esto no indica que son los años donde se han registrado la mayor cantidad de desapariciones en la entidad. Mas bien muestra que son los años donde el personal ha podido registrar la mayor cantidad de datos desde que inició operaciones la institución en el año de 2019. Por lo tanto, conocer el comporatamiento de las desapariciones a lo largo de los años en la entidad aún es difícil con base en los datos con los que se cuenta.
+
+Sin embargo, el registro de la CBPCDMX nos proporciona otros datos como la edad, sexo, estatus de la persona (sigue desaparecida, localizada con vida y localizada sin vida), lugar de la desaparición, estado civil, escolaridad, entre otras que si nos pueden proporcionar mayor información sobre quiénes son las personas desaparecidas en la CDMX.
+
+Inciando con los perfiles de las personas desaparecidas observadas por la CBPCDMX, podemos observar los siguientes grupos con base a la edad y sexo de las personas. 
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 2"}
+knitr::include_graphics(files$perfiles_desp)
+```
+
+La figura anterior nos muestra que se han registrado casos de personas desaparecidas en diferentes grupos de edad. Sin embargo, podemos ver que existen diferencias fundamentales y proporciones más altas conforme al sexo de las personas. Para el caso de las personas del sexo masculino, podemos ver que el grupo de edad que desaparecen con mayor frecuencia son aquellos entre las edades de 30 a 44 años (`r perfiles_hombre_uno`%), seguidos de grupo de entre 45 a 59 años  (`r perfiles_hombre_dos`%). Para las personas del sexo femenino los datos cambian, ya que vemos que el grupo de edad con el mayor porcentaje de casos corresponden a aquelas entre 12 a 17 años de edad (`r perfiles_mujer_uno`%), seguidas del grupo entre 30 a 44 años (`r perfiles_mujer_dos`%). 
+
+
+Asimismo, si incluimos el estatus de localización de las personas, podemos ver otros patrones respecto a quienes desaparecen en la CDMX. 
+
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 3"}
+knitr::include_graphics(files$perfiles_desp_estatus)
+```
+Para las personas que son localizadas con vida, las mujeres entre 12 y 17 años y los hombres entre 30 y 44 años son quienes tienen los porcentajes más altos conforme a sus sexo. Para las personas que son localizadas sin vida, los hombrs entre 30 y 44 años y las muejeres entre 45 y 59 años son quienes tienen los porcentajes más altos. Asimismo, para las personas que continúan desaparecidas, las personas del sexo masculino entre 30 y 44 años y las mujeres entre 18 y 23 años son quienes tienen los porcentajes más altos respecto a este grupo. 
+
+La CBPCDMX también proporciona otros datos respecto como la escolaridad de las personas. Si tomamos esta variable y la comparamos con el estatus de las personas podemos ver lo siguiente para aquellas cuya información está completa: 
+
+```{r}
+escolaridad_hombres_vida <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "con vida" & escolaridad == "secundaria") %>% 
+      select(per)
+
+escolaridad_hombres_vida_dos <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "con vida" & escolaridad == "preparatoria") %>% 
+      select(per)
+
+escolaridad_mujeres_vida <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "con vida" & escolaridad == "preparatoria") %>% 
+      select(per)
+
+
+escolaridad_mujeres_vida_dos <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "con vida" & escolaridad == "secundaria") %>% 
+      select(per)
+
+
+escolaridad_hombrs_sinvida <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "sin vida" & escolaridad == "secundaria") %>% 
+      select(per)
+
+
+escolaridad_hombrs_sinvida_dos <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "sin vida" & escolaridad == "licenciatura") %>% 
+      select(per)
+
+
+escolaridad_mujeres_sinvida <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "sin vida" & escolaridad == "licenciatura") %>% 
+      select(per)
+
+
+escolaridad_mujeres_sinvida_dos <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "sin vida" & escolaridad == "preparatoria") %>% 
+      select(per)
+
+
+escolaridad_hombres_desp <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "sigue desaparecida" & escolaridad == "secundaria") %>% 
+      select(per)
+
+escolaridad_hombres_desp_dos <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "sigue desaparecida" & escolaridad == "primaria") %>% 
+      select(per)
+
+
+escolaridad_mujeres_desp <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "sigue desaparecida" & escolaridad == "preparatoria") %>% 
+      select(per)
+
+escolaridad_mujeres_desp_dos <- registro_cbpcdmx_clean %>% 
+   mutate(condicion_localizacion = factor(condicion_localizacion,
+                                           levels = c("con vida",
+                                                      "sin vida",
+                                                      "sigue desaparecida"))) %>% 
+   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   summarize(total=n()) %>% 
+   na.omit() %>% 
+   mutate(den=sum(total, na.rm=T)) %>%
+   ungroup() %>%
+   mutate(per=round((total/den)*100, 0)) %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "sigue desaparecida" & escolaridad == "secundaria") %>% 
+      select(per)
+
+```
+
+
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 2"}
+knitr::include_graphics(files$tree_map_escolaridad)
+```
+
+Lo anterior nos indica que el grado de escolaridad de secundaria y preparatoria son los que tiene mayor porcentaje respecto a las personas localizadas con vida o que permanecen sin ser localizadas, mientras que el grado de licenciatura y secundaria concentran la mayor cantidad respecto a las personas que son localizadas sin vida. Sin embargo, existen diferencias desagregando por sexo, ya que las mujeres suelen tener un mayor nivel de estudios que los hombres que han desaparecido en la CDMX, sin importar el estatus de localización, respecto a los datos registrados por la CBPCDMX. 
+
+Para el grupo de personas que han sido localizadas con vida, podemos ver que la mayoría de ellos cuenta con estudios de secundaria o preparatoria. Para los hombres en este grupo, `r escolaridad_hombres_vida`% tienen estudios de secundaria y `r escolaridad_hombres_vida_dos`% cuenta con estudios de preparatoria. Por su parte, para las mujeres en este grupo `r escolaridad_mujeres_vida`% cuentan con estudios de preparatoria y `r escolaridad_mujeres_vida_dos`% de secundaria. 
+
+Para el grupo de personas localizadas sin vida se observan cambios con los otros grupos, ya que el grupo mayoritario son personas con licenciatura, seguidas de personas con secundaria. Desagregando por sexo, `r escolaridad_hombrs_sinvida`%  de los hombres contaban con estudios de secundaria y `r escolaridad_hombrs_sinvida_dos`% contaban con estudios de licenciatura. Para las mujeres vemos diferencias sustanciales, ya que `r escolaridad_mujeres_sinvida`% contaban con estudios de licenciatura y `r escolaridad_mujeres_sinvida_dos`% contaban con estudios de preparatoria. 
+
+Por último, para el grupo de personas que permanecen desaparecidas la mayoría de los casos son personas que tienen estudios de secundaria y preparatoria. Volviendo a desagregar por sexo, `r escolaridad_hombres_desp`% cuentan con estudios secundaria y `r escolaridad_hombres_desp_dos`% cuentan con estudios de primaria. Para el caso de las mujeres, `r escolaridad_mujeres_desp`% cuentan con estudios preparatoria y `r escolaridad_mujeres_desp_dos`% cuentan con estudios secundaria. 
+
+
+# Dónde desaparecen las personas en la CDMX 
+
+```{r}
+# preparar shape con conapo y datos cbpcdmx 
+shp_cdmx <- shp_cdmx %>%
+   left_join(poblacion_conapo,
+             by = c("CVEGEO" = "CVEGEO")) 
+
+
+cases_per_muni <- registro_cbpcdmx_clean %>%
+   group_by(clave_municipio_desp) %>%
+   count(clave_municipio_desp) %>% 
+   ungroup() %>% 
+   mutate(clave_municipio_desp = str_pad(clave_municipio_desp, width = 3, side = "left", pad = "0"))
+
+per_munis <- cases_per_muni %>% 
+      na.omit() %>% 
+      mutate(tot_denom=(sum(n))) %>% 
+  top_n(3, n) %>%
+  summarise(n = sum(n),
+            tot_denom = mean(tot_denom)) %>% 
+  mutate(pct = round((n/tot_denom)*100, 1)) %>% 
+  select(pct)
+
+# Datos para mapa
+mapa_registro <- shp_cdmx %>%
+   left_join(cases_per_muni,
+             by = c("CVE_MUN" = "clave_municipio_desp")) %>% 
+   mutate(tasa_desp = n*(100000/total_poblacion)) %>% 
+   st_transform(mapa_registro, crs = "+proj=longlat +ellps=WGS72 +no_defs")
+
+```
+
+
+La CBPCDMX también proporciona información sobre el municipio/alcaldía ocurrió la desaparición de las personas. El siguiente mapa muestra el total de casos por alcaldía.^[Es importante tomar en cuenta que también el registro también incluye casos de personas que desaparecieron en otras entidades del país.] 
+
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Mapa 1"}
+knitr::include_graphics(files$mapa_desp_totales)
+```
+
+Como se puede observar, las alcaldías de Iztapalapa (221), Cuauhtémoc (160), Gustavo A. Madero (146), Álvaro Obregón (91) y Coyoacán (87) y  son las cinco alcaldías que concentran la mayor cantidad de casos reportados en la CDMX, con un `r per_muni`% del total de casos de los que se tiene información sobre el lugar de desaparición.
+
+Los datos también podemos desagregarlos por tasas tomando en cuenta la población de las alcaldías, observado lo siguiente.
+
+
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Mapa 2"}
+knitr::include_graphics(files$mapa_desp_tasas)
+```
+
+Si tomamos en cuenta las tasas por cada 100 mil habitantes podemos observar diferencias, ya que la alcaldía que concentra la tasa más alta es la Cuauhtémoc (29.12), seguida de Azcapotzalco (18.41), Tláhuac (16.96), Venustiano Carranza (16.88) y Benito Juárez (16.71). 
+
+# Dónde se localizan las personas que son encontradas con vida o sin vida en la CDMX 
+
 
 
 
