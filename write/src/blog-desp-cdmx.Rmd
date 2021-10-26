@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE,
 ```
 
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # Paquetes ----------------------------------------------------------------
 if(!require('pacman')) {install.packages('pacman')}
 pacman::p_load(tidyverse, sf, here)
@@ -24,7 +24,7 @@ pacman::p_load(tidyverse, sf, here)
 ```
 
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # Files -------------------------------------------------------------------
 files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean.rds"),
               shp_cdmx = here("descriptives", "input", "09mun.shp"),
@@ -40,7 +40,7 @@ files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_c
 ```
 
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # Datos 
 registro_cbpcdmx_clean <- read_rds(files$registro_cbpcdmx_clean)
 shp_cdmx <- st_read(files$shp_cdmx)
@@ -88,7 +88,7 @@ A continuación se presenta una discusión detallada sobre cómo surge este regi
 # Contexto de los datos del Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX
 
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # inline code 
 total_casos <- registro_cbpcdmx_clean %>% distinct(id) %>% nrow
 
@@ -162,9 +162,9 @@ Si desagregamos esta información aún más, se puede constatar que, efectivamen
 
 También destaca que del total de casos, solo `r per_origen_colectivos`% corresponden a casos dados a concer por colectivos de familiares en búsqueda y `r per_origen_sc`% por sociedad civil. Esto podría indicar que pocas personas conocen o tienen acceso a mecanismos para notificar los hechos de la desaparición a la CBPCDMX. 
 
-# Quiénes desaparecen en la CDMX
+# ¿Quiénes desaparecen en la CDMX?
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # inline code 
 
 desp_2020 <- registro_cbpcdmx_clean %>% 
@@ -312,15 +312,205 @@ La figura anterior nos muestra que se han registrado casos de personas desaparec
 
 Asimismo, si incluimos el estatus de localización de las personas, podemos ver otros patrones respecto a quienes desaparecen en la CDMX. 
 
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
+# quiénes son con estatus 
+perfiles_estatus_vida_mujer <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más")),
+            condicion_localizacion = factor(condicion_localizacion,
+                                            levels = c("con vida",
+                                                       "sin vida",
+                                                       "sigue desaparecida"))) %>% 
+      group_by(sexo, condicion_localizacion, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "con vida" & grupo_edad == "De 12 a 17 años") %>% 
+      select(per)
+
+
+perfiles_estatus_vida_hombre <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más")),
+            condicion_localizacion = factor(condicion_localizacion,
+                                            levels = c("con vida",
+                                                       "sin vida",
+                                                       "sigue desaparecida"))) %>% 
+      group_by(sexo, condicion_localizacion, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "con vida" & grupo_edad == "De 30 a 44 años") %>% 
+      select(per)
+
+
+
+perfiles_estatus_sinvida_hombre <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más")),
+            condicion_localizacion = factor(condicion_localizacion,
+                                            levels = c("con vida",
+                                                       "sin vida",
+                                                       "sigue desaparecida"))) %>% 
+      group_by(sexo, condicion_localizacion, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "sin vida" & grupo_edad == "De 30 a 44 años") %>% 
+      select(per)
+
+
+perfiles_estatus_sinvida_mujer <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más")),
+            condicion_localizacion = factor(condicion_localizacion,
+                                            levels = c("con vida",
+                                                       "sin vida",
+                                                       "sigue desaparecida"))) %>% 
+      group_by(sexo, condicion_localizacion, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "sin vida" & grupo_edad == "De 45 a 59 años") %>% 
+      select(per)
+
+perfiles_estatus_siguedesp_hombre <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más")),
+            condicion_localizacion = factor(condicion_localizacion,
+                                            levels = c("con vida",
+                                                       "sin vida",
+                                                       "sigue desaparecida"))) %>% 
+      group_by(sexo, condicion_localizacion, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(sexo == "hombre" & condicion_localizacion == "sigue desaparecida" & grupo_edad == "De 30 a 44 años") %>% 
+      select(per)
+
+
+perfiles_estatus_siguedesp_mujer <- registro_cbpcdmx_clean %>% 
+      mutate(
+            grupo_edad = case_when(edad<12 ~ "Menores de 12 años",
+                                   edad %in% 12:17 ~ "De 12 a 17 años",
+                                   edad %in% 18:23 ~ "De 18 a 23 años",
+                                   edad %in% 24:29 ~ "De 24 a 29 años",
+                                   edad %in% 30:44 ~ "De 30 a 44 años",
+                                   edad %in% 45:59 ~ "De 45 a 59 años",
+                                   edad>=60 ~ "60 años o más"),
+            grupo_edad = factor(grupo_edad,
+                                levels = c("Menores de 12 años",
+                                           "De 12 a 17 años",
+                                           "De 18 a 23 años",
+                                           "De 24 a 29 años",
+                                           "De 30 a 44 años",
+                                           "De 45 a 59 años",
+                                           "60 años o más")),
+            condicion_localizacion = factor(condicion_localizacion,
+                                            levels = c("con vida",
+                                                       "sin vida",
+                                                       "sigue desaparecida"))) %>% 
+      group_by(sexo, condicion_localizacion, grupo_edad) %>%
+      summarize(total=n()) %>%
+      mutate(den=sum(total, na.rm=T)) %>%
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>%
+      na.omit() %>% 
+      filter(sexo == "mujer" & condicion_localizacion == "sigue desaparecida" & grupo_edad == "De 18 a 23 años") %>% 
+      select(per)
+
+```
+
+
 
 ```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 3"}
 knitr::include_graphics(files$perfiles_desp_estatus)
 ```
-Para las personas que son localizadas con vida, las mujeres entre 12 y 17 años y los hombres entre 30 y 44 años son quienes tienen los porcentajes más altos conforme a sus sexo. Para las personas que son localizadas sin vida, los hombrs entre 30 y 44 años y las muejeres entre 45 y 59 años son quienes tienen los porcentajes más altos. Asimismo, para las personas que continúan desaparecidas, las personas del sexo masculino entre 30 y 44 años y las mujeres entre 18 y 23 años son quienes tienen los porcentajes más altos respecto a este grupo. 
+Para las personas que son localizadas con vida, las mujeres entre 12 y 17 años (`r perfiles_estatus_vida_mujer`) y los hombres entre 30 y 44 años (`r perfiles_estatus_vida_hombre`) son quienes tienen los porcentajes más altos conforme a sus sexo. Para las personas que son localizadas sin vida, los hombres entre 30 y 44 años (`r perfiles_estatus_sinvida_hombre`) y las mujeres entre 45 y 59 años (`r perfiles_estatus_sinvida_mujer`) son quienes tienen los porcentajes más altos. Asimismo, para las personas que continúan desaparecidas, las personas del sexo masculino entre 30 y 44 años (`r perfiles_estatus_siguedesp_hombre`) y las mujeres entre 18 y 23 años (`r perfiles_estatus_siguedesp_mujer`) son quienes tienen los porcentajes más altos respecto a este grupo. 
 
 La CBPCDMX también proporciona otros datos respecto como la escolaridad de las personas. Si tomamos esta variable y la comparamos con el estatus de las personas podemos ver lo siguiente para aquellas cuya información está completa: 
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 escolaridad_hombres_vida <- registro_cbpcdmx_clean %>% 
    mutate(condicion_localizacion = factor(condicion_localizacion,
                                            levels = c("con vida",
@@ -500,7 +690,7 @@ escolaridad_mujeres_desp_dos <- registro_cbpcdmx_clean %>%
 
 
 
-```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 2"}
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 4"}
 knitr::include_graphics(files$tree_map_escolaridad)
 ```
 
@@ -513,9 +703,9 @@ Para el grupo de personas localizadas sin vida se observan cambios con los otros
 Por último, para el grupo de personas que permanecen desaparecidas la mayoría de los casos son personas que tienen estudios de secundaria y preparatoria. Volviendo a desagregar por sexo, `r escolaridad_hombres_desp`% cuentan con estudios secundaria y `r escolaridad_hombres_desp_dos`% cuentan con estudios de primaria. Para el caso de las mujeres, `r escolaridad_mujeres_desp`% cuentan con estudios preparatoria y `r escolaridad_mujeres_desp_dos`% cuentan con estudios secundaria. 
 
 
-# Dónde desaparecen las personas en la CDMX 
+# ¿Dónde desaparecen las personas en la CDMX?
 
-```{r}
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # preparar shape con conapo y datos cbpcdmx 
 shp_cdmx <- shp_cdmx %>%
    left_join(poblacion_conapo,
@@ -566,10 +756,70 @@ knitr::include_graphics(files$mapa_desp_tasas)
 
 Si tomamos en cuenta las tasas por cada 100 mil habitantes podemos observar diferencias, ya que la alcaldía que concentra la tasa más alta es la Cuauhtémoc (29.12), seguida de Azcapotzalco (18.41), Tláhuac (16.96), Venustiano Carranza (16.88) y Benito Juárez (16.71). 
 
-# Dónde se localizan las personas que son encontradas con vida o sin vida en la CDMX 
+# ¿Dónde se localizan las personas que son encontradas con vida o sin vida en la CDMX? 
+
+```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
+# inline code 
+localizadas_vida <- registro_cbpcdmx_clean %>% 
+      group_by(condicion_localizacion) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(condicion_localizacion == "con vida") %>% 
+      select(per)
+
+localizadas_sin_vida <- registro_cbpcdmx_clean %>% 
+      group_by(condicion_localizacion) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(condicion_localizacion == "sin vida") %>% 
+      select(per)
+
+localizadas_desp <- registro_cbpcdmx_clean %>% 
+      group_by(condicion_localizacion) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>%
+      mutate(per=round((total/den)*100, 1)) %>% 
+      filter(condicion_localizacion == "sigue desaparecida") %>% 
+      select(per)
+
+suma_localizadas <- registro_cbpcdmx_clean %>% 
+      group_by(condicion_localizacion) %>% 
+      summarize(total=n()) %>% 
+      mutate(den=sum(total)) %>% 
+      ungroup() %>% 
+      filter(condicion_localizacion != "sigue desaparecida") %>% 
+      mutate(sum = sum(total)) %>%
+      filter(condicion_localizacion == "con vida") %>% 
+      select(sum)
+```
+
+De las `r total_casos` que han sido observadas por la CBPCDMX, `r localizadas_vida`% de las personas han sido localizadas con vida, `r localizadas_sin_vida`% de las personas han sido localizadas sin vida y `r localizadas_desp`% permancen como desaparecidas. 
+
+Para las `r suma_localizadas` personas que han sido localizadas con vida o sin vida, el registro de la CBPCDMX nos proporciona información sobre los lugares donde han sido halladas. Estos lugares nos demuestran la complejidad y retos que tienen las autoridades encargadas de realizar la búsqueda de personas desaparecidas, sobre todo por las posibilidades y planeación que tiene que existir respecto a los casos recibidos.
+
+La siguiente gráfica desglosa estas diferencias respecto al estatus de localización. 
+
+
+```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 5"}
+knitr::include_graphics(files$lugar_localizacion)
+```
+
+Respecto a las personas localizadas con vida, podemos ver que existen diferentes lugares donde han sido halladas, siendo en su propio domicilio (38.06%), en un lugar público (15.17%) y en casa de un amigo o familiar (13.58%) los casos que tienen la proporción más alta. A pesar de esto, las clasificaciones pueden resultar ambiguas, sobre todo si no se conoce con mayor detalle las causas de la desaparición, por lo que hay que ser cuidados cuando se ve que una parte importante se localizan en lugares cercanos a ellas como sus hogares o de personas cercanas. 
+
+Respecto a las personas localizadas sin vida, podemos ver que más de la mitad han sido localizadas (52.5%) han sido localizadas en un centro forense. Sin embargo, también se registran otros lugares como sitios públicos, hoteles, fosas clandestinas e, inclusive, en casas de amigos o familaires. 
+
+# Conclusión 
+
+Los datos analizados nos dan un primer acercamiento al fenómeno de la desaparición en la CDMX. A pesar de que el registro de la CBPCDMX cuenta con limitaciones importantes por el número de casos registrados, también nos proporciona un primer acercamiento que nos muestra ciertas patrones. 
+
+Frente a esto, es importante remarcar la importancia de que el resto de las instituciones que generan datos sobre personas desaparecidas en la entidad puedan generar los mecanismos necesarios para el intercambio adecuado de esta información con el objetivo de conocer la magnitud del fenómeno, los perfiles de las personas y poder generar políticas adecuadas de búsqueda, investigación e identificación de personas desaparecidas en la CDMX. 
 
 
 
 
-
-
+<!-- done -->
