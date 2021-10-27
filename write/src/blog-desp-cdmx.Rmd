@@ -744,7 +744,7 @@ La CBPCDMX también proporciona información sobre el municipio/alcaldía ocurri
 knitr::include_graphics(files$mapa_desp_totales)
 ```
 
-Como se puede observar, las alcaldías de Iztapalapa (221), Cuauhtémoc (160), Gustavo A. Madero (146), Álvaro Obregón (91) y Coyoacán (87) y  son las cinco alcaldías que concentran la mayor cantidad de casos reportados en la CDMX, con un `r per_muni`% del total de casos de los que se tiene información sobre el lugar de desaparición.
+Como se puede observar, las alcaldías de Iztapalapa (221), Cuauhtémoc (160), Gustavo A. Madero (146), Álvaro Obregón (91) y Coyoacán (87) y  son las cinco alcaldías que concentran la mayor cantidad de casos reportados en la CDMX, con un `r per_munis`% del total de casos de los que se tiene información sobre el lugar de desaparición.
 
 Los datos también podemos desagregarlos por tasas tomando en cuenta la población de las alcaldías, observado lo siguiente.
 
