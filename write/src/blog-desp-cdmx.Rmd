@@ -1,5 +1,5 @@
 ---
-title: "Desaparecer en la Ciudad de México: una aproximación al fenómeno desde el Registro de Personas Desaparecidas de la Comisión de Búsqueda de la CDMX"
+title: "Desaparecer en la Ciudad de México: una aproximación al fenómeno de personas desaparecidas desde el Registro de Personas Desaparecidas de la Comisión de Búsqueda de la CDMX"
 author: "Jorge Ruiz Reyes"
 date: "10/26/2021"
 output: word_document
@@ -76,11 +76,11 @@ poblacion_conapo <- read_csv(files$proyecciones_conapo) %>%
 
 La desaparición de personas en la Ciudad de México (CDMX) es un fenómeno que ha estado presente durante décadas. El primer caso de desaparición registrado por las autoridades en la CDMX tiene fecha del año de 1966. Asimismo, los hechos han alcanzado una magnitud mayor en años recientes.  
 
-Ante esto, han exisitido diversos esfuerzos por atender y visibilizar la problemática. A mediados del año de 2019 el gobierno de la CDMX anunció la creación de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX), la cual tiene el objetivo de ejecutar y da seguimiento a las acciones de búsqueda de Personas Desaparecidas en la CDMX. Asimismo, a finales del mismo año se publicó la Ley de Búsqueda de Personas de la CDMX (LBPCDMX), la cual establece las acciones y facultades para la búsqueda, investigación e identificación de las autoridades encargadas de atender la problemática. De igual forma, a mediados del año 2021 inciaron las sesiones y conformación de los grupos de trabajo de las 14 autoridades que conforman el sistema de búsqueda de personas en la entidad. 
+Ante esto, han existido diversos esfuerzos por atender y visibilizar la problemática. A mediados del año de 2019 el gobierno de la CDMX anunció la creación de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX), la cual tiene el objetivo de ejecutar y dar seguimiento a las acciones de búsqueda de Personas Desaparecidas en la CDMX. Asimismo, a finales del mismo año se publicó la _Ley de Búsqueda de Personas de la CDMX (LBPCDMX)_, la cual establece las acciones y facultades para la búsqueda, investigación e identificación de las autoridades encargadas de atender la problemática. De igual forma, a mediados del año 2021 iniciaron las sesiones y conformación de los grupos de trabajo de las 14 autoridades que conforman el sistema de búsqueda de personas en la entidad. 
 
-A pesar de esto, familias de personas desaparecidas y sociedad civil han mencionado que las acciones de búsqueda e investiación han sido insuficientes en la entidad por factores como la falta de coordinación entre las autoridades, la propia complejidad geográfica de la ciudad, la falta de visibilización de los casos ante otros fenómenos sociales y políticos y la ausencia de planeación y diagnósticos por parte de las autoridades. Específicamente frente a la falta de datos para conocer las zonas con mayor inicidencia, periodos y perfiles de personas desaparecidas. 
+A pesar de esto, familias de personas desaparecidas y sociedad civil han señalado que las acciones de búsqueda e investigación han sido insuficientes en la entidad por factores como la falta de coordinación entre las autoridades, la propia complejidad geográfica de la ciudad, la falta de visibilización de los casos ante otros fenómenos sociales y políticos y la ausencia de planeación y diagnósticos por parte de las autoridades. Específicamente,frente a la falta de datos para conocer las zonas con mayor incidencia, periodos y perfiles de las personas desaparecidas. 
 
-Teniendo en cuenta lo anterior, este artículo realizará una primera aproximación al fenómeno de la desaparición en la CDMX analizando el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX. Es necesario recalcar desde un incio que frente a las limitaciones de los datos, no se está dando un panorama completo de la desaparición, ni de los patrones específicos de los hechos. Por el contrario, solo se están dando a conocer los patrones de generación de información de una sola fuente que solo puede observar una fracción del fenómeno en su totalidad.          
+Teniendo en cuenta lo anterior, este artículo realizará una primera aproximación al fenómeno de la desaparición en la CDMX analizando el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX. Es necesario recalcar desde un inicio que frente a las limitaciones de los datos, no se está dando un panorama completo de la desaparición, ni de los patrones específicos de los hechos. Por el contrario, solo se están dando a conocer los patrones de generación de información de una sola fuente que solo puede observar una fracción del fenómeno en su totalidad.          
 
 A continuación se presenta una discusión detallada sobre cómo surge este registro, así como de sus alcances y limitaciones. 
 
@@ -150,17 +150,17 @@ per_origen_sc <- registro_cbpcdmx_clean %>%
 
 Existen por lo menos cinco fuentes que registran información sobre casos de desaparición en la CDMX a nivel nacional y local. Estos son: 1) los casos de personas desaparecidas observadas dentro del Registro Nacional de Personas Desaparecidas y No localizadas de la Comisión Nacional de Búsqueda de Personas Desaparecidas (CNB); 2) las llamadas de posibles casos reportados a las líneas de LOCATEL; 3) los casos que son monitoreados por el C5 de la CDMX; 4) el registro de personas desaparecidas de la Fiscalía de Investigación y Persecución de los Delitos en Materia de Desaparición Forzada de Personas y la Desaparición Cometida por Particulares y Búsqueda de Personas Desaparecidas de la CDMX (FIPEDE) y 5) el Registro de Personas Desaparecidas de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX).
 
-Los registros anteriores tienen diferentes objetivos y procesos para recopilar información sobre personas desaparecidas (monitoreo en materia de seguridad, investigación del delito o búsqueda de personas). Por esta razón, los casos registrados y el periodo de actualización y seguimiento de éstos no son los mismos; los campos o variables de información no están homologados y el acceso a la información de cada uno puede ser mayor o menor, además de que no existe un sistema que unifique la información de todos. Esto ejemplifica el reto y la dificultad de generar diagnósitcos sobre la desaparición de personas en la entidad. 
+Los registros anteriores tienen diferentes objetivos y procesos para recopilar información sobre personas desaparecidas (monitoreo en materia de seguridad, investigación del delito o búsqueda de personas). Por esta razón, los casos registrados y el periodo de actualización y seguimiento de éstos no son los mismos; los campos o variables de información no están homologados y el acceso a la información de cada uno puede ser mayor o menor, además de que no existe un sistema que unifique la información de todos. Esto ejemplifica el reto y la dificultad de generar diagnósticos sobre la desaparición de personas en la entidad. 
 
-El registro de personas desaparecidas de la CBPCDMX se compone de información las autoridades de la Administración Pública Local y la Fiscalía General de la CDMX, así como de noticias o reportes que recibe directamente la comisión. Específicamente, su objetivo es el de proporcionar apoyo en las investigaciones para su búsqueda, localización e identificación en la entidad. 
+El registro de personas desaparecidas de la CBPCDMX se compone de información enviada por las autoridades de la Administración Pública Local y la Fiscalía General de la CDMX, así como de noticias o reportes que recibe directamente la comisión. Específicamente, su objetivo es el de proporcionar apoyo en las investigaciones para su búsqueda, localización e identificación en la entidad. 
 
-La CBPCDMX proporciona una [versión pública](https://comisiondebusqueda.cdmx.gob.mx/CBP/rpd/version-publica) con 28 campos o variables de los datos que recopila. Esta fue una decisión de la unidad de análisis de contexto de la CBPCDMX por proporcionar datos abiertos a la ciudadanía sobre los hechos. El último corte de información proporcionado correspode a julio de 2021^[Para este análisis se tomaron los datos del corte de mayo de 2021, ya que algunos campos como las colonias donde se reportaron las desapariciones tuvieron que ser revisadas manualmente ante la falta de homologación de los datos.], por lo que aún estamos a la espera de las actualizaciones recientes de estos datos. 
+La CBPCDMX proporciona una [versión pública](https://comisiondebusqueda.cdmx.gob.mx/CBP/rpd/version-publica) del regstro con 28 campos o variables de los datos que recopila. Esta fue una decisión de la unidad de análisis de contexto de la CBPCDMX por proporcionar datos abiertos a la ciudadanía sobre los hechos. El último corte de información proporcionado corresponde a julio de 2021^[Para este análisis se tomaron los datos del corte de mayo de 2021, ya que algunos campos como las colonias donde se reportaron las desapariciones tuvieron que ser revisadas manualmente ante la falta de homologación de los datos.], por lo que aún estamos a la espera de las actualizaciones recientes de estos datos. 
 
-Para el corte de información analizado, el registro de la CBPCDMX contaba con `r total_casos` de personas desaparecidas en la CDMX. De este total, `r per_origen_noticia`%  de los casos fueron registrados con base en una noticia en algún medio impreso o electrónico que hablaba sobre la desaparición de una persona en la entidad, mientras que `r per_origen_reporte`% de los casos fueron registrados por reportes realizados directamente a la comisión. 
+Para el corte de información analizado, el registro de la CBPCDMX contaba con `r total_casos` casos de personas desaparecidas en la CDMX. De este total, `r per_origen_noticia`%  de los casos fueron registrados con base en una noticia en algún medio impreso o electrónico que hablaba sobre la desaparición de una persona en la entidad, mientras que `r per_origen_reporte`% de los casos fueron registrados por reportes realizados directamente a la comisión. 
 
-Si desagregamos esta información aún más, se puede constatar que, efectivamente, `r per_origen_portal`% de los casos fueron registrados directamente por personal de la CBPCDMX en su portal de información. La segunda fuente que ha proporcionado mayor información al registro de la CBPCDMX son casos que han observado otras instituciones de la CDMX como las fiscalías especializdas. Estos corresponden a `r per_origen_autoridadescdmx`% del total de casos. Sin embargo, es importante recalcar que estos casos no fueron notificados directamente a la CBPCDMX, sino que la institución tuvo conocimiento de éstos por noticias en otros medios, lo cual habla de la falta de coordinación y comunicación entre las autoridades locales. 
+Si desagregamos esta información aún más, se puede constatar que, efectivamente, `r per_origen_portal`% de los casos fueron registrados directamente por personal de la CBPCDMX en su portal de información. La segunda fuente que ha proporcionado mayor información al registro de la CBPCDMX son casos que han observado otras instituciones de la CDMX como las fiscalías especializadas o la comision ejecutiva de atencion a victimas de la ciudad de mexico. Estos corresponden a `r per_origen_autoridadescdmx`% del total de casos. Sin embargo, es importante recalcar que estos casos no fueron notificados directamente a la CBPCDMX, sino que la institución tuvo conocimiento de éstos por noticias en otros medios, lo cual habla de la falta de coordinación y comunicación entre las autoridades locales. 
 
-También destaca que del total de casos, solo `r per_origen_colectivos`% corresponden a casos dados a concer por colectivos de familiares en búsqueda y `r per_origen_sc`% por sociedad civil. Esto podría indicar que pocas personas conocen o tienen acceso a mecanismos para notificar los hechos de la desaparición a la CBPCDMX. 
+También destaca que del total de casos, solo `r per_origen_colectivos`% corresponden a casos reportados por colectivos de familiares en búsqueda y `r per_origen_sc`% por sociedad civil. Esto podría indicar que pocas personas conocen o tienen acceso a mecanismos para notificar los hechos de la desaparición a la CBPCDMX. 
 
 # ¿Quiénes desaparecen en la CDMX?
 
@@ -297,20 +297,20 @@ La CBPCDMX cuenta con casos registrados de personas desaparecidas entre los año
 knitr::include_graphics(files$casos_registrados)
 ```
 
-Los años de 2020(`r desp_2020`%) y 2021 (`r desp_2021`%) son los años con la mayor cantidad de observaciones. Sin embargo, esto no indica que son los años donde se han registrado la mayor cantidad de desapariciones en la entidad. Mas bien muestra que son los años donde el personal ha podido registrar la mayor cantidad de datos desde que inició operaciones la institución en el año de 2019. Por lo tanto, conocer el comporatamiento de las desapariciones a lo largo de los años en la entidad aún es difícil con base en los datos con los que se cuenta.
+Los años de 2020(`r desp_2020`%) y 2021 (`r desp_2021`%) son los años con la mayor cantidad de observaciones. Sin embargo, esto no indica que son los años donde se han registrado la mayor cantidad de desapariciones en la entidad. Mas bien muestra que son los años donde el personal ha podido registrar la mayor cantidad de datos desde que inició operaciones la institución en el año de 2019. Por lo tanto, conocer el comportamiento de las desapariciones a lo largo de los años en la entidad aún es difícil con base en los datos con los que se cuenta.
 
 Sin embargo, el registro de la CBPCDMX nos proporciona otros datos como la edad, sexo, estatus de la persona (sigue desaparecida, localizada con vida y localizada sin vida), lugar de la desaparición, estado civil, escolaridad, entre otras que si nos pueden proporcionar mayor información sobre quiénes son las personas desaparecidas en la CDMX.
 
-Inciando con los perfiles de las personas desaparecidas observadas por la CBPCDMX, podemos observar los siguientes grupos con base a la edad y sexo de las personas. 
+Iniciando con los perfiles de las personas desaparecidas observadas por la CBPCDMX, podemos observar los siguientes grupos con base a la edad y sexo de las personas. 
 
 ```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 2"}
 knitr::include_graphics(files$perfiles_desp)
 ```
 
-La figura anterior nos muestra que se han registrado casos de personas desaparecidas en diferentes grupos de edad. Sin embargo, podemos ver que existen diferencias fundamentales y proporciones más altas conforme al sexo de las personas. Para el caso de las personas del sexo masculino, podemos ver que el grupo de edad que desaparecen con mayor frecuencia son aquellos entre las edades de 30 a 44 años (`r perfiles_hombre_uno`%), seguidos de grupo de entre 45 a 59 años  (`r perfiles_hombre_dos`%). Para las personas del sexo femenino los datos cambian, ya que vemos que el grupo de edad con el mayor porcentaje de casos corresponden a aquelas entre 12 a 17 años de edad (`r perfiles_mujer_uno`%), seguidas del grupo entre 30 a 44 años (`r perfiles_mujer_dos`%). 
+La figura anterior nos muestra los grupos de personas desaparecidas registradas por la CBPCDMX con base en su edad y sexo. Podemos ver que existen diferencias fundamentales y proporciones más altas conforme a ciertos grupos. Para el caso de las personas del sexo masculino, podemos ver que desaparecen con mayor frecuencia aquellos entre las edades de 30 a 44 años (`r perfiles_hombre_uno`%), seguidos del grupo de 45 a 59 años  (`r perfiles_hombre_dos`%). Para las personas del sexo femenino los datos cambian, ya que vemos que el grupo de edad con el mayor porcentaje de casos corresponden a aquellas entre 12 a 17 años de edad (`r perfiles_mujer_uno`%), seguidas del grupo entre 30 a 44 años (`r perfiles_mujer_dos`%). 
 
 
-Asimismo, si incluimos el estatus de localización de las personas, podemos ver otros patrones respecto a quienes desaparecen en la CDMX. 
+Asimismo, si incluimos el estatus de localización de las personas, podemos ver otros patrones respecto a quiénes desaparecen en la CDMX. 
 
 ```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 # quiénes son con estatus 
@@ -506,9 +506,10 @@ perfiles_estatus_siguedesp_mujer <- registro_cbpcdmx_clean %>%
 ```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Figura 3"}
 knitr::include_graphics(files$perfiles_desp_estatus)
 ```
-Para las personas que son localizadas con vida, las mujeres entre 12 y 17 años (`r perfiles_estatus_vida_mujer`) y los hombres entre 30 y 44 años (`r perfiles_estatus_vida_hombre`) son quienes tienen los porcentajes más altos conforme a sus sexo. Para las personas que son localizadas sin vida, los hombres entre 30 y 44 años (`r perfiles_estatus_sinvida_hombre`) y las mujeres entre 45 y 59 años (`r perfiles_estatus_sinvida_mujer`) son quienes tienen los porcentajes más altos. Asimismo, para las personas que continúan desaparecidas, las personas del sexo masculino entre 30 y 44 años (`r perfiles_estatus_siguedesp_hombre`) y las mujeres entre 18 y 23 años (`r perfiles_estatus_siguedesp_mujer`) son quienes tienen los porcentajes más altos respecto a este grupo. 
 
-La CBPCDMX también proporciona otros datos respecto como la escolaridad de las personas. Si tomamos esta variable y la comparamos con el estatus de las personas podemos ver lo siguiente para aquellas cuya información está completa: 
+Para las personas que son localizadas con vida, las mujeres entre 12 y 17 años (`r perfiles_estatus_vida_mujer`%) y los hombres entre 30 y 44 años (`r perfiles_estatus_vida_hombre`%) son quienes tienen los porcentajes más altos conforme a su sexo. Para las personas que son localizadas sin vida, los hombres entre 30 y 44 años (`r perfiles_estatus_sinvida_hombre`%) y las mujeres entre 45 y 59 años (`r perfiles_estatus_sinvida_mujer`%) son quienes tienen los porcentajes más altos. Asimismo, para las personas que continúan desaparecidas, las personas del sexo masculino entre 30 y 44 años (`r perfiles_estatus_siguedesp_hombre`%) y las mujeres entre 18 y 23 años (`r perfiles_estatus_siguedesp_mujer`%) son quienes tienen los porcentajes más altos respecto a este grupo. 
+
+La CBPCDMX también proporciona otros datos como la escolaridad de las personas. Si tomamos esta variable y la comparamos con el estatus de las personas podemos ver lo siguiente para aquellas cuya información está completa: 
 
 ```{r, echo=FALSE, include=FALSE, warning=FALSE, comment=FALSE}
 escolaridad_hombres_vida <- registro_cbpcdmx_clean %>% 
@@ -694,13 +695,13 @@ escolaridad_mujeres_desp_dos <- registro_cbpcdmx_clean %>%
 knitr::include_graphics(files$tree_map_escolaridad)
 ```
 
-Lo anterior nos indica que el grado de escolaridad de secundaria y preparatoria son los que tiene mayor porcentaje respecto a las personas localizadas con vida o que permanecen sin ser localizadas, mientras que el grado de licenciatura y secundaria concentran la mayor cantidad respecto a las personas que son localizadas sin vida. Sin embargo, existen diferencias desagregando por sexo, ya que las mujeres suelen tener un mayor nivel de estudios que los hombres que han desaparecido en la CDMX, sin importar el estatus de localización, respecto a los datos registrados por la CBPCDMX. 
+La gráfica nos indica que el grado de escolaridad de secundaria y preparatoria son los que tiene mayor porcentaje respecto a las personas localizadas con vida o que permanecen sin ser localizadas, mientras que el grado de licenciatura y secundaria concentran la mayor cantidad respecto a las personas que son localizadas sin vida. Sin embargo, existen diferencias desagregando por sexo, ya que las mujeres suelen tener un nivel de estudios mayor que los hombres que han desaparecido en la CDMX, sin importar el estatus de localización. 
 
 Para el grupo de personas que han sido localizadas con vida, podemos ver que la mayoría de ellos cuenta con estudios de secundaria o preparatoria. Para los hombres en este grupo, `r escolaridad_hombres_vida`% tienen estudios de secundaria y `r escolaridad_hombres_vida_dos`% cuenta con estudios de preparatoria. Por su parte, para las mujeres en este grupo `r escolaridad_mujeres_vida`% cuentan con estudios de preparatoria y `r escolaridad_mujeres_vida_dos`% de secundaria. 
 
 Para el grupo de personas localizadas sin vida se observan cambios con los otros grupos, ya que el grupo mayoritario son personas con licenciatura, seguidas de personas con secundaria. Desagregando por sexo, `r escolaridad_hombrs_sinvida`%  de los hombres contaban con estudios de secundaria y `r escolaridad_hombrs_sinvida_dos`% contaban con estudios de licenciatura. Para las mujeres vemos diferencias sustanciales, ya que `r escolaridad_mujeres_sinvida`% contaban con estudios de licenciatura y `r escolaridad_mujeres_sinvida_dos`% contaban con estudios de preparatoria. 
 
-Por último, para el grupo de personas que permanecen desaparecidas la mayoría de los casos son personas que tienen estudios de secundaria y preparatoria. Volviendo a desagregar por sexo, `r escolaridad_hombres_desp`% cuentan con estudios secundaria y `r escolaridad_hombres_desp_dos`% cuentan con estudios de primaria. Para el caso de las mujeres, `r escolaridad_mujeres_desp`% cuentan con estudios preparatoria y `r escolaridad_mujeres_desp_dos`% cuentan con estudios secundaria. 
+Por último, para el grupo de personas que permanecen desaparecidas la mayoría de los casos son personas que tienen estudios de secundaria y preparatoria. Volviendo a desagregar por sexo, `r escolaridad_hombres_desp`% de los hombres cuentan con estudios secundaria y `r escolaridad_hombres_desp_dos`% cuentan con estudios de primaria. Para el caso de las mujeres, `r escolaridad_mujeres_desp`% cuentan con estudios preparatoria y `r escolaridad_mujeres_desp_dos`% cuentan con estudios secundaria. 
 
 
 # ¿Dónde desaparecen las personas en la CDMX?
@@ -737,14 +738,14 @@ mapa_registro <- shp_cdmx %>%
 ```
 
 
-La CBPCDMX también proporciona información sobre el municipio/alcaldía ocurrió la desaparición de las personas. El siguiente mapa muestra el total de casos por alcaldía.^[Es importante tomar en cuenta que también el registro también incluye casos de personas que desaparecieron en otras entidades del país.] 
+La CBPCDMX también proporciona información sobre el municipio/alcaldía donde ocurrió la desaparición de las personas. El siguiente mapa muestra el total de casos por alcaldía.^[Es importante tomar en cuenta que el registro también incluye casos de personas que desaparecieron en otras entidades del país.] 
 
 
 ```{r, echo=FALSE, out.width = '100%', out.height='100%', fig.show='hold', fig.align="center", fig.cap="Mapa 1"}
 knitr::include_graphics(files$mapa_desp_totales)
 ```
 
-Como se puede observar, las alcaldías de Iztapalapa (221), Cuauhtémoc (160), Gustavo A. Madero (146), Álvaro Obregón (91) y Coyoacán (87) y  son las cinco alcaldías que concentran la mayor cantidad de casos reportados en la CDMX, con un `r per_munis`% del total de casos de los que se tiene información sobre el lugar de desaparición.
+Como se puede observar, las alcaldías de Iztapalapa (221), Cuauhtémoc (160), Gustavo A. Madero (146), Álvaro Obregón (91) y Coyoacán (87) son las cinco alcaldías que concentran la mayor cantidad de casos reportados en la CDMX, con un `r per_munis`% del total de los que se tiene información sobre el lugar de desaparición.
 
 Los datos también podemos desagregarlos por tasas tomando en cuenta la población de las alcaldías, observado lo siguiente.
 
@@ -798,7 +799,7 @@ suma_localizadas <- registro_cbpcdmx_clean %>%
       select(sum)
 ```
 
-De las `r total_casos` que han sido observadas por la CBPCDMX, `r localizadas_vida`% de las personas han sido localizadas con vida, `r localizadas_sin_vida`% de las personas han sido localizadas sin vida y `r localizadas_desp`% permancen como desaparecidas. 
+De las `r total_casos` que han sido observadas por la CBPCDMX, `r localizadas_vida`% de las personas han sido localizadas con vida, `r localizadas_sin_vida`% de las personas han sido localizadas sin vida y `r localizadas_desp`% permanecen como desaparecidas. 
 
 Para las `r suma_localizadas` personas que han sido localizadas con vida o sin vida, el registro de la CBPCDMX nos proporciona información sobre los lugares donde han sido halladas. Estos lugares nos demuestran la complejidad y retos que tienen las autoridades encargadas de realizar la búsqueda de personas desaparecidas, sobre todo por las posibilidades y planeación que tiene que existir respecto a los casos recibidos.
 
@@ -811,7 +812,7 @@ knitr::include_graphics(files$lugar_localizacion)
 
 Respecto a las personas localizadas con vida, podemos ver que existen diferentes lugares donde han sido halladas, siendo en su propio domicilio (38.06%), en un lugar público (15.17%) y en casa de un amigo o familiar (13.58%) los casos que tienen la proporción más alta. A pesar de esto, las clasificaciones pueden resultar ambiguas, sobre todo si no se conoce con mayor detalle las causas de la desaparición, por lo que hay que ser cuidados cuando se ve que una parte importante se localizan en lugares cercanos a ellas como sus hogares o de personas cercanas. 
 
-Respecto a las personas localizadas sin vida, podemos ver que más de la mitad han sido localizadas (52.5%) han sido localizadas en un centro forense. Sin embargo, también se registran otros lugares como sitios públicos, hoteles, fosas clandestinas e, inclusive, en casas de amigos o familaires. 
+Respecto a las personas localizadas sin vida, podemos ver que más de la mitad han sido localizadas (52.5%) han sido localizadas en un centro forense. Sin embargo, también se registran otros lugares como sitios públicos, hoteles, fosas clandestinas e, inclusive, en casas de amigos o familiares. 
 
 # Conclusión 
 
