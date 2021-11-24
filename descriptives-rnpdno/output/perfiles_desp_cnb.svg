@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='1152.00pt' height='864.00pt' viewBox='0 0 1152.00 864.00'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='1008.00pt' height='720.00pt' viewBox='0 0 1008.00 720.00'>
 <defs>
   <style type='text/css'><![CDATA[
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
@@ -13,75 +13,75 @@
 </defs>
 <rect width='100%' height='100%' style='stroke: none; fill: none;'/>
 <defs>
-  <clipPath id='cpMC4wMHwxMTUyLjAwfDAuMDB8ODY0LjAw'>
-    <rect x='0.00' y='0.00' width='1152.00' height='864.00' />
+  <clipPath id='cpMC4wMHwxMDA4LjAwfDAuMDB8NzIwLjAw'>
+    <rect x='0.00' y='0.00' width='1008.00' height='720.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMC4wMHwxMTUyLjAwfDAuMDB8ODY0LjAw)'>
+<g clip-path='url(#cpMC4wMHwxMDA4LjAwfDAuMDB8NzIwLjAw)'>
 </g>
 <defs>
-  <clipPath id='cpMTE2LjUxfDEwNTguNTh8NTguMDF8ODU4LjUy'>
-    <rect x='116.51' y='58.01' width='942.06' height='800.51' />
+  <clipPath id='cpMTE2LjUxfDkxNC41OHw1OC4wMXw3MTQuNTI='>
+    <rect x='116.51' y='58.01' width='798.06' height='656.51' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMTE2LjUxfDEwNTguNTh8NTguMDF8ODU4LjUy)'>
-<rect x='159.34' y='69.13' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #38CF9E;' />
-<rect x='159.34' y='180.31' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #31AE8B;' />
-<rect x='159.34' y='291.49' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #2FA586;' />
-<rect x='159.34' y='402.67' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #2EA385;' />
-<rect x='159.34' y='513.86' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #1F6D66;' />
-<rect x='159.34' y='625.04' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #32B38E;' />
-<rect x='159.34' y='736.22' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #38CD9C;' />
-<rect x='587.55' y='69.13' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #37C89A;' />
-<rect x='587.55' y='180.31' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #002036;' />
-<rect x='587.55' y='291.49' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #2FA686;' />
-<rect x='587.55' y='402.67' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #35C196;' />
-<rect x='587.55' y='513.86' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #33B991;' />
-<rect x='587.55' y='625.04' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #3BDAA4;' />
-<rect x='587.55' y='736.22' width='428.21' height='111.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #3CE0A7;' />
-<text x='371.39' y='125.74' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='10.27px' lengthAdjust='spacingAndGlyphs'>6%</text>
-<text x='369.41' y='236.92' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>13.6%</text>
-<text x='369.41' y='348.10' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>15.8%</text>
-<text x='369.41' y='459.28' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>16.2%</text>
-<text x='369.41' y='570.47' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>29.5%</text>
-<text x='369.41' y='681.65' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>12.4%</text>
-<text x='370.20' y='792.83' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>6.5%</text>
-<text x='798.41' y='125.74' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>7.7%</text>
-<text x='797.62' y='236.92' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>50.7%</text>
-<text x='797.62' y='348.10' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>15.6%</text>
-<text x='798.41' y='459.28' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>9.1%</text>
-<text x='797.62' y='570.47' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>11.1%</text>
-<text x='798.41' y='681.65' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>3.6%</text>
-<text x='798.41' y='792.83' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>2.2%</text>
+<g clip-path='url(#cpMTE2LjUxfDkxNC41OHw1OC4wMXw3MTQuNTI=)'>
+<rect x='152.79' y='67.13' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #38CF9E;' />
+<rect x='152.79' y='158.31' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #31AE8B;' />
+<rect x='152.79' y='249.49' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #2FA586;' />
+<rect x='152.79' y='340.67' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #2EA385;' />
+<rect x='152.79' y='431.86' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #1F6D66;' />
+<rect x='152.79' y='523.04' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #32B38E;' />
+<rect x='152.79' y='614.22' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #38CD9C;' />
+<rect x='515.55' y='67.13' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #37C89A;' />
+<rect x='515.55' y='158.31' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #002036;' />
+<rect x='515.55' y='249.49' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #2FA686;' />
+<rect x='515.55' y='340.67' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #35C196;' />
+<rect x='515.55' y='431.86' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #33B991;' />
+<rect x='515.55' y='523.04' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #3BDAA4;' />
+<rect x='515.55' y='614.22' width='362.76' height='91.18' style='stroke-width: 0.21; stroke-linecap: square; stroke-linejoin: miter; fill: #3CE0A7;' />
+<text x='332.11' y='113.74' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='10.27px' lengthAdjust='spacingAndGlyphs'>6%</text>
+<text x='330.14' y='204.92' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>13.6%</text>
+<text x='330.14' y='296.10' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>15.8%</text>
+<text x='330.14' y='387.28' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>16.2%</text>
+<text x='330.14' y='478.47' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>29.5%</text>
+<text x='330.14' y='569.65' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>12.4%</text>
+<text x='330.93' y='660.83' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>6.5%</text>
+<text x='693.68' y='113.74' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>7.7%</text>
+<text x='692.89' y='204.92' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>50.7%</text>
+<text x='692.89' y='296.10' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>15.6%</text>
+<text x='693.68' y='387.28' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>9.1%</text>
+<text x='692.89' y='478.47' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='20.15px' lengthAdjust='spacingAndGlyphs'>11.1%</text>
+<text x='693.68' y='569.65' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>3.6%</text>
+<text x='693.68' y='660.83' style='font-size: 7.11px; fill: #FFFFFF; font-family: Arial;' textLength='16.20px' lengthAdjust='spacingAndGlyphs'>2.2%</text>
 </g>
-<g clip-path='url(#cpMC4wMHwxMTUyLjAwfDAuMDB8ODY0LjAw)'>
-<text x='373.44' y='53.08' text-anchor='middle' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='31.67px' lengthAdjust='spacingAndGlyphs'>hombre</text>
-<text x='801.65' y='53.08' text-anchor='middle' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='26.39px' lengthAdjust='spacingAndGlyphs'>mujer</text>
-<text x='111.58' y='794.42' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='68.61px' lengthAdjust='spacingAndGlyphs'>60 años o más</text>
-<text x='111.58' y='683.24' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 45 a 59 años</text>
-<text x='111.58' y='572.05' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 30 a 44 años</text>
-<text x='111.58' y='460.87' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 24 a 29 años</text>
-<text x='111.58' y='349.69' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 18 a 23 años</text>
-<text x='111.58' y='238.51' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 12 a 17 años</text>
-<text x='111.58' y='127.32' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='95.00px' lengthAdjust='spacingAndGlyphs'>Menores de 12 años</text>
-<image width='17.28' height='86.40' x='1075.02' y='421.99' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAAq0lEQVQ4ja1UQRKEMAyCvGRfsf//mR7cqSYB23W8tTYFQqjA57sFCARABI8VECDHCgiCuNT9vom6vLWgtY4ceI5DUvZrB9utUvJsRqBc6hLKCvwAZRbpDTvhq2HuoJL3ur9UWUv8gR2FqHvAWwPneEu/zrWJTfVanr7I6bJwIYiCqD0ckU5prEnE6y08UGrNNpRNUFeg8rykeZoc+edSyV7wefJ031OvhpLId8E8BRl8GhcuAAAAAElFTkSuQmCC'/>
-<text x='1097.78' y='496.91' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>10</text>
-<text x='1097.78' y='479.15' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>20</text>
-<text x='1097.78' y='461.40' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>30</text>
-<text x='1097.78' y='443.64' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>40</text>
-<text x='1097.78' y='425.89' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>50</text>
-<text x='1075.02' y='415.47' style='font-size: 11.00px; font-family: Courier New;' textLength='66.02px' lengthAdjust='spacingAndGlyphs'>Porcentaje</text>
-<line x1='1075.02' y1='494.39' x2='1078.47' y2='494.39' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1075.02' y1='476.64' x2='1078.47' y2='476.64' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1075.02' y1='458.88' x2='1078.47' y2='458.88' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1075.02' y1='441.13' x2='1078.47' y2='441.13' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1075.02' y1='423.37' x2='1078.47' y2='423.37' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1088.84' y1='494.39' x2='1092.30' y2='494.39' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1088.84' y1='476.64' x2='1092.30' y2='476.64' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1088.84' y1='458.88' x2='1092.30' y2='458.88' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1088.84' y1='441.13' x2='1092.30' y2='441.13' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<line x1='1088.84' y1='423.37' x2='1092.30' y2='423.37' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
-<text x='587.55' y='27.55' text-anchor='middle' style='font-size: 11.00px; font-family: Courier New;' textLength='488.58px' lengthAdjust='spacingAndGlyphs'>Registradas por la Comisión Nacional de Búsqueda de Personas Desaparecidas</text>
-<text x='587.55' y='13.29' text-anchor='middle' style='font-size: 13.20px; font-weight: bold; font-family: Courier New;' textLength='427.29px' lengthAdjust='spacingAndGlyphs'>Edad y sexo de personas desaparecidas a nivel nacional</text>
+<g clip-path='url(#cpMC4wMHwxMDA4LjAwfDAuMDB8NzIwLjAw)'>
+<text x='334.17' y='53.08' text-anchor='middle' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='31.67px' lengthAdjust='spacingAndGlyphs'>hombre</text>
+<text x='696.92' y='53.08' text-anchor='middle' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='26.39px' lengthAdjust='spacingAndGlyphs'>mujer</text>
+<text x='111.58' y='662.42' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='68.61px' lengthAdjust='spacingAndGlyphs'>60 años o más</text>
+<text x='111.58' y='571.24' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 45 a 59 años</text>
+<text x='111.58' y='480.05' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 30 a 44 años</text>
+<text x='111.58' y='388.87' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 24 a 29 años</text>
+<text x='111.58' y='297.69' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 18 a 23 años</text>
+<text x='111.58' y='206.51' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='79.16px' lengthAdjust='spacingAndGlyphs'>De 12 a 17 años</text>
+<text x='111.58' y='115.32' text-anchor='end' style='font-size: 8.80px; font-weight: bold; fill: #4D4D4D; font-family: Courier New;' textLength='95.00px' lengthAdjust='spacingAndGlyphs'>Menores de 12 años</text>
+<image width='17.28' height='86.40' x='931.02' y='349.99' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAAq0lEQVQ4ja1UQRKEMAyCvGRfsf//mR7cqSYB23W8tTYFQqjA57sFCARABI8VECDHCgiCuNT9vom6vLWgtY4ceI5DUvZrB9utUvJsRqBc6hLKCvwAZRbpDTvhq2HuoJL3ur9UWUv8gR2FqHvAWwPneEu/zrWJTfVanr7I6bJwIYiCqD0ckU5prEnE6y08UGrNNpRNUFeg8rykeZoc+edSyV7wefJ031OvhpLId8E8BRl8GhcuAAAAAElFTkSuQmCC'/>
+<text x='953.78' y='424.91' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>10</text>
+<text x='953.78' y='407.15' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>20</text>
+<text x='953.78' y='389.40' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>30</text>
+<text x='953.78' y='371.64' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>40</text>
+<text x='953.78' y='353.89' style='font-size: 8.80px; font-family: Courier New;' textLength='10.56px' lengthAdjust='spacingAndGlyphs'>50</text>
+<text x='931.02' y='343.47' style='font-size: 11.00px; font-family: Courier New;' textLength='66.02px' lengthAdjust='spacingAndGlyphs'>Porcentaje</text>
+<line x1='931.02' y1='422.39' x2='934.47' y2='422.39' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='931.02' y1='404.64' x2='934.47' y2='404.64' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='931.02' y1='386.88' x2='934.47' y2='386.88' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='931.02' y1='369.13' x2='934.47' y2='369.13' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='931.02' y1='351.37' x2='934.47' y2='351.37' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='944.84' y1='422.39' x2='948.30' y2='422.39' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='944.84' y1='404.64' x2='948.30' y2='404.64' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='944.84' y1='386.88' x2='948.30' y2='386.88' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='944.84' y1='369.13' x2='948.30' y2='369.13' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<line x1='944.84' y1='351.37' x2='948.30' y2='351.37' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
+<text x='515.55' y='27.55' text-anchor='middle' style='font-size: 11.00px; font-family: Courier New;' textLength='488.58px' lengthAdjust='spacingAndGlyphs'>Registradas por la Comisión Nacional de Búsqueda de Personas Desaparecidas</text>
+<text x='515.55' y='13.29' text-anchor='middle' style='font-size: 13.20px; font-weight: bold; font-family: Courier New;' textLength='427.29px' lengthAdjust='spacingAndGlyphs'>Edad y sexo de personas desaparecidas a nivel nacional</text>
 </g>
 </svg>

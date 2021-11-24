@@ -94,7 +94,7 @@ rnpdno_clean %>%
 
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_desp_cnb, .x)),
-                       device = .x, width = 16, height = 12))
+                       device = .x, width = 14, height = 10))
 
 
 # Perfiles nacionales con estatus
@@ -152,7 +152,7 @@ rnpdno_clean %>%
 
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_estatus_cnb, .x)),
-                       device = .x, width = 16, height = 12))
+                       device = .x, width = 14, height = 10))
 
 
 # DONE. 

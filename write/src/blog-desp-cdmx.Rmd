@@ -36,7 +36,9 @@ files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_c
               tree_map_civil = here("descriptives", "output", "civil_desp.png"),
               mapa_desp_totales = here("descriptives", "output", "mapa_desp_totales.png"),
               mapa_desp_tasas = here("descriptives", "output", "mapa_desp_tasas.png"),
-              lugar_localizacion = here("descriptives", "output", "lugar_localizacion.png"))
+              lugar_localizacion = here("descriptives", "output", "lugar_localizacion.png"),
+              perfiles_desp_cnb = here("descriptives-rnpdno", "output", "perfiles_desp_cnb.png"),
+               perfiles_estatus_cnb = here("descriptives-rnpdno", "output", "perfiles_desp_cnb.png"))
 ```
 
 
