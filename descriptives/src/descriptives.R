@@ -139,7 +139,7 @@ registro_cbpcdmx_clean %>%
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
             plot.subtitle = element_text(hjust = 0.5),
-            #  axis.text.y = element_blank(),
+            axis.text.y = element_text(face = "bold"),
             axis.text.x = element_text(face = "bold")) +
       scale_x_discrete(position = "top")
 
@@ -187,7 +187,7 @@ registro_cbpcdmx_clean %>%
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
             plot.subtitle = element_text(hjust = 0.5),
-            #  axis.text.y = element_blank(),
+            axis.text.y = element_text(face = "bold"),
             axis.text.x = element_text(face = "bold")) +
       scale_x_discrete(position = "top")+
       facet_wrap(~ condicion_localizacion)
