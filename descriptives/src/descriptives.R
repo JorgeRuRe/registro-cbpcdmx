@@ -33,7 +33,6 @@ devices <- c("png", "svg")
 
 
 # Datos  ------------------------------------------------------------------
-
 registro_cbpcdmx_clean <- read_rds(files$registro_cbpcdmx_clean)
 
 shp_cdmx <- st_read(files$shp_cdmx)
