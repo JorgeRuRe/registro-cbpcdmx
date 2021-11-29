@@ -79,11 +79,11 @@ rnpdno_clean %>%
       mutate(order_edad= as.numeric(grupo_edad)) %>% 
       ggplot(data=., aes(x = sexo, y = reorder(grupo_edad, -order_edad), fill = per)) +
       geom_tile(color="black") +
-      scale_fill_gradient(low="#3CE0A7", high="#002036", name = "Porcentaje") + 
+      scale_fill_gradient(low="#F9E0D9", high="#F85A3E", name = "Porcentaje") + 
       labs(title="Edad y sexo de personas desaparecidas a nivel nacional",
            subtitle = "Registradas por la Comisión Nacional de Búsqueda de Personas Desaparecidas",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="white")+
+      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black")+
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
@@ -136,11 +136,11 @@ rnpdno_clean %>%
       mutate(order_edad= as.numeric(grupo_edad)) %>% 
       ggplot(data=., aes(x = sexo, y = reorder(grupo_edad, -order_edad), fill = per)) +
       geom_tile(color="black") +
-      scale_fill_gradient(low="#3CE0A7", high="#002036", name = "Porcentaje")+ 
+      scale_fill_gradient(low="#F9E0D9", high="#F85A3E", name = "Porcentaje")+ 
       labs(title="Edad y sexo de personas desaparecidas a nivel nacional",
            subtitle = "con base en su estatus de localización",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="white")+
+      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black")+
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
