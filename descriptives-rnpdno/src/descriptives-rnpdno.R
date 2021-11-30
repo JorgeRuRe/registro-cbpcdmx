@@ -41,7 +41,6 @@ rnpdno_clean <- read_excel(files$rnpdno_clean) %>%
 
 
 
-
 # Descriptives ------------------------------------------------------------
 
 # Perfiles nacionales 
@@ -83,18 +82,18 @@ rnpdno_clean %>%
       labs(title="Edad y sexo de personas desaparecidas a nivel nacional",
            subtitle = "Registradas por la Comisión Nacional de Búsqueda de Personas Desaparecidas",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black")+
+      geom_text(aes(label=paste0(per, "%")), size=3.5, hjust=.2, vjust=.2, color="black")+
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
             plot.subtitle = element_text(hjust = 0.5),
-            axis.text.y = element_text(face = "bold"),
-            axis.text.x = element_text(face = "bold")) +
+            axis.text.y = element_text(face = "bold", size=10.5),
+            axis.text.x = element_text(face = "bold", size=10.5)) +
       scale_x_discrete(position = "top")
 
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_desp_cnb, .x)),
-                       device = .x, width = 14, height = 10))
+                       device = .x, width = 20, height = 18))
 
 
 # Perfiles nacionales con estatus
@@ -140,19 +139,19 @@ rnpdno_clean %>%
       labs(title="Edad y sexo de personas desaparecidas a nivel nacional",
            subtitle = "con base en su estatus de localización",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black")+
+      geom_text(aes(label=paste0(per, "%")), size=3.5, hjust=.2, vjust=.2, color="black")+
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
             plot.subtitle = element_text(hjust = 0.5),
-            axis.text.y = element_text(face = "bold"),
-            axis.text.x = element_text(face = "bold")) +
+            axis.text.y = element_text(face = "bold",  size=10.5),
+            axis.text.x = element_text(face = "bold", size=10.5)) +
       scale_x_discrete(position = "top")+
       facet_wrap(~ condicion_actual_de_las_personas)
 
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_estatus_cnb, .x)),
-                       device = .x, width = 14, height = 10))
+                       device = .x, width = 20, height = 18))
 
 
 # DONE. 

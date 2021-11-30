@@ -134,17 +134,17 @@ registro_cbpcdmx_clean %>%
       labs(title="Edad y sexo de personas desaparecidas en la Ciudad de México",
            subtitle = "Registradas por la Comisión de Búsqueda de la CDMX",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black") +
+      geom_text(aes(label=paste0(per, "%")), size=3.5, hjust=.2, vjust=.2, color="black") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
             plot.subtitle = element_text(hjust = 0.5),
-            axis.text.y = element_text(face = "bold"),
-            axis.text.x = element_text(face = "bold")) +
+            axis.text.y = element_text(face = "bold", size=10.5),
+            axis.text.x = element_text(face = "bold", size=10.5)) +
       scale_x_discrete(position = "top")
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_desp, .x)),
-                       device = .x, width = 14, height = 10))
+                       device = .x, width = 20, height = 18))
 
 
 # quiénes son con estatus 
@@ -182,22 +182,21 @@ registro_cbpcdmx_clean %>%
       labs(title="Edad y sexo de personas desaparecidas en la Ciudad de México",
            subtitle = "con base en su estatus de localización",
            x="", y="", fill="") +
-      geom_text(aes(label=paste0(per, "%")), size=2.5, hjust=.2, vjust=.2, color="black")+
+      geom_text(aes(label=paste0(per, "%")), size=3.5, hjust=.2, vjust=.2, color="black")+
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
             plot.subtitle = element_text(hjust = 0.5),
-            axis.text.y = element_text(face = "bold"),
-            axis.text.x = element_text(face = "bold")) +
+            axis.text.y = element_text(face = "bold", size=10.5),
+            axis.text.x = element_text(face = "bold", size=10.5)) +
       scale_x_discrete(position = "top")+
       facet_wrap(~ condicion_localizacion)
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_desp_estatus, .x)),
-                       device = .x, width = 14, height = 10))
+                       device = .x, width = 20, height = 18))
 
 
 # escolaridad 
-
 registro_cbpcdmx_clean %>% 
    mutate(condicion_localizacion = factor(condicion_localizacion,
                                            levels = c("con vida",
