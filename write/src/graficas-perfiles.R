@@ -7,7 +7,7 @@
 
 # Paquetes ----------------------------------------------------------------
 pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolorbrewer, readxl,
-               biscale, cowplot, lubridate, patchwork, janitor)
+               biscale, cowplot, lubridate, patchwork, janitor, googledrive)
 
 
 
@@ -21,7 +21,7 @@ devices <- c("png", "svg")
 
 
 
-# Data  ------------------------------------------------------------------
+# Data Desp ------------------------------------------------------------------
 registro_cbpcdmx_clean <- read_rds(files$registro_cbpcdmx_clean)
 rnpdno_clean <- read_excel(files$rnpdno_clean) %>% 
       clean_names()
