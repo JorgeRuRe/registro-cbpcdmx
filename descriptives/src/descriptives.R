@@ -209,7 +209,6 @@ escolaridad_censo_cdmx %>%
                          place = "centre", size = 12, face = "bold",
                          family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
-      facet_wrap(~ SEXO) +
       labs(title= "Escolaridad de la población en CDMX",
            subtitle = "En porcentaje") +
       theme_minimal(base_family = "Courier New") +
@@ -228,7 +227,7 @@ registro_cbpcdmx_clean %>%
                                              levels = c("con vida",
                                                         "sin vida",
                                                         "sigue desaparecida"))) %>% 
-      group_by(sexo, escolaridad) %>% 
+      group_by(escolaridad) %>% 
       summarize(total=n()) %>% 
       na.omit() %>% 
       mutate(den=sum(total, na.rm=T)) %>%
@@ -241,7 +240,6 @@ registro_cbpcdmx_clean %>%
                          place = "centre", size = 12, face = "bold",
                          family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
-      facet_wrap(~ sexo) +
       labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
            subtitle = "En porcentaje") +
       theme_minimal(base_family = "Courier New") +
@@ -261,7 +259,7 @@ registro_cbpcdmx_clean %>%
                                            levels = c("con vida",
                                                       "sin vida",
                                                       "sigue desaparecida"))) %>% 
-   group_by(sexo, condicion_localizacion, escolaridad) %>% 
+   group_by(condicion_localizacion, escolaridad) %>% 
    summarize(total=n()) %>% 
    na.omit() %>% 
    mutate(den=sum(total, na.rm=T)) %>%
@@ -274,7 +272,7 @@ registro_cbpcdmx_clean %>%
                          place = "centre", size = 12, face = "bold",
                         family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
-      facet_grid(condicion_localizacion ~ sexo) +
+      facet_wrap(~ condicion_localizacion) +
       labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
            subtitle = "En porcentaje y con base en estatus de localización") +
       theme_minimal(base_family = "Courier New") +

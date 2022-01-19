@@ -2,11 +2,11 @@
 # Maintainers: JRR, OE
 # Copyright:   2021, PDH-IBERO GPL v2 or later
 # ===========================================================
-# desp-cdmx/write/src/graficas-perfiles.R
+# desp-cdmx/censo/src/procesar-censo.R
 
 
 # Paquetes ----------------------------------------------------------------
-pacman::p_load(tidyverse, here,  googledrive)
+pacman::p_load(tidyverse, here, googledrive)
 
 
 # Files out ---------------------------------------------------------------
@@ -114,9 +114,8 @@ escolaridad_censo_cdmx <- censo %>%
                               SEXO == 3 ~ "Mujeres", 
                               T ~ "No especificado")) %>%
       filter(NIVACAD != "No aplica") %>%
-      group_by(SEXO, NIVACAD) %>% 
+      group_by(NIVACAD) %>% 
       summarise(total = sum(FACTOR, na.rm = T)) %>% 
-      group_by(SEXO) %>% 
       mutate(pob = sum(total, na.rm =T),
              fuente = "Censo")
 
