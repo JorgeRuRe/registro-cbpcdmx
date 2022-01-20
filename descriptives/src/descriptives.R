@@ -240,8 +240,7 @@ registro_cbpcdmx_clean %>%
                          place = "centre", size = 12, face = "bold",
                          family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
-      labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
-           subtitle = "En porcentaje") +
+      labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
@@ -274,7 +273,7 @@ registro_cbpcdmx_clean %>%
       scale_fill_brewer(palette = "Set3") +
       facet_wrap(~ condicion_localizacion) +
       labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
-           subtitle = "En porcentaje y con base en estatus de localización") +
+           subtitle = "Con base en su estatus de localización") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
