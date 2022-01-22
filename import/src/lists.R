@@ -1,4 +1,4 @@
-# Maintainers: JRR, OE
+# Maintainers: JRR, OE ----
 # Copyright:   2021, PDH-IBERO GPL v2 or later
 # ===========================================================
 # desp-cdmx/import/src/lists.R
@@ -96,4 +96,54 @@ viudo <- list("viudo(a)")
 
 
 
+# Parentesco --------------------------------------------------------------
+familiar <- list("abuela materna", "abuela paterna", "abuelo materno", "abuelo(a)", "cuñada (o)",
+                 "cunado(a)", "hermano(a)", "hijastro(a)", "hijo", "hijo(a)", "madre", "madre adoptiva",
+                 "medio hermano(a) materno(a)", "medio hermano(a) paterno(a)", "nieta materna", 
+                 "nieto (a)", "nieto materno", "nuera", "nuera o yerno", "padrastro", 
+                 "padre", "prima materna", "prima paterna", "primo materno", "primo paterno",
+                 "primo(a)", "sobrina materna", "sobrina paterna", "sobrino materno", 
+                 "sobrino paterno", "sobrino(a)", "suegro(a)", "tia abuela", "tia materna",
+                 "tia materna, madre", "tia paterna", "tio (a)", "tio materno", 
+                 "tio(a)", "yerno", "abuela", "concuña", "cuñada", "hermamo", "hermana", 
+                 "hermano", "hija", "hijo", "medio hermano", "nieta", "nieto", "prima",
+                 "primo", "sobirna", "sobrina", "sobrino", "tia", "tio", "cuñado(a)")
 
+pareja <- list("companero(a)/esposo(a)", "compañero(a)/esposo(a)", "concubina", "concubina (o)",
+               "concubinario", "conyuge", "expareja", "novio(a)", "concubino", "esposa",
+               "esposo(a)", "ex concubina", "novia")
+
+otro_parentesco <- list("abogado", "abogado (a)", "amigo/conocido", "contacto de empleo", 
+                        "jefe", "otro", "tutor", "tutor (a)", "vecino", "vecino(a)", "abogada",
+                        "amgo", "amiga", "amigo", "compañera de trabajo", "conocida", "conocido",
+                        "jefe laboral", "ong", "otro")
+
+
+# Estado de salud  --------------------------------------------------------
+buen_estado <- list("buen estado", "buen estado de salud", "buen estado general")
+
+mal_estado_otros <- list("enfermo", "mal estado por otras causas")
+
+
+# Lugar de la localización ------------------------------------------------
+abordo_vehiculo <- list("a bordo de vehiculo particular", 
+                      "dentro de un vehiculo")
+
+casa_famcon <- list("en casa de un amigo(a)", "en casa de un familiar", 
+                    "en casa de una amistad o conocido")
+
+domicilio_propio <- list("en su domicilio", "en su propio domicilio", "su domicilio")
+
+ministerio_publico <- list("en un ministerio publico", "en un ministerio publico o lugar administrativo",
+                           "en una agencia del ministerio publico")
+
+central_camionera <- list("en una central camionera", "en una central o estacion de transporte")
+
+centro_salud <- list("en un centro hospitalario", "en centro de salud u hospital", "hospital")
+
+centro_adicciones <- list("en una institucion para adicciones", "en un centro de atencion de adicciones")
+
+centro_detencion <- list("en un centro de detencion o reclusion", "en un centro de reclusion o detencion")
+
+
+# DONE.

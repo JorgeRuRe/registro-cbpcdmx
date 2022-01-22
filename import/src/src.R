@@ -37,7 +37,7 @@ clean_desaparicion <- function(files) {
    clean_names() %>% 
       mutate(año_desaparicion = lubridate::year(fecha_de_desaparicion),
           año_localizacion = lubridate::year(fecha_de_localizacion),
-          clave_municipio_desp = str_pad(clave_municipio_desp, width = 2, side = "left", pad = "0"),
+          clave_municipio_desp = str_pad(clave_municipio_desp, width = 3, side = "left", pad = "0"),
           condicion_localizacion = replace_na(condicion_localizacion, "sigue desaparecida"),
           origen_de_la_noticia = case_when(
              origen_de_la_noticia %in% c("alcaldia azcapotzalco", "alcaldía azcapotzalco", 
@@ -169,13 +169,10 @@ main <- function(){
    print("working on registro desaparición cdmx")
    desp_cdmx <- clean_desaparicion(files)
    
-   print("writing fosas gto")
+   print("writing fosas cdmx")
    saveRDS(desp_cdmx, files$registro_clean) 
    }
 
 main()
    
 # fin 
-
-
-
