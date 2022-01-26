@@ -1,3 +1,8 @@
+# Author: JRR
+# Maintainers: JRR, OE
+# Copyright:   2022, Data Cívica GPL v2 or later
+# ===========================================================
+# desp-cdmx/descriptives-edades/src/gráficas-edades.R
 
 # Paquetes ----------------------------------------------------------------
 pacman::p_load(tidyverse, sf, here, svglite, scales, readxl,
@@ -6,7 +11,7 @@ pacman::p_load(tidyverse, sf, here, svglite, scales, readxl,
 
 
 # Files -------------------------------------------------------------------
-files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean.rds"),
+files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean_dic.rds"),
               rnpdno_clean = here("descriptives-edades", "input", "BASE-DE-DATOS-Personas-desaparecidas-2011-2020.xlsx"),
               edades_censo_nacional = here("censo", "output", "edades_censo_nacional.rds"),
               edades_censo_cdmx = here("censo", "output", "edades_censo_cdmx.rds"),

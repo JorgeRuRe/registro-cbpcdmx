@@ -1,6 +1,6 @@
 # Author: JRR
 # Maintainers: JRR, OE
-# Copyright:   2021, PDH-IBERO GPL v2 or later
+# Copyright:   2022, Data Cívica GPL v2 or later
 # ===========================================================
 # desp-cdmx/descriptives/src/descriptives.R
 
@@ -15,7 +15,7 @@ pacman::p_load(tidyverse, sf, here, svglite, scales, treemapify, reshape2, rcolo
 
 
 # Files -------------------------------------------------------------------
-files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean.rds"),
+files <- list(registro_cbpcdmx_clean = here("import", "output", "registro_cdmx_clean_dic.rds"),
               proyecciones_conapo = here("descriptives", "input", "base_municipios_final_datos_01.csv"),
               shp_cdmx = here("descriptives", "input", "09mun.shp"),
               escolaridad_censo_cdmx = here("censo", "output", "escolaridad_censo_cdmx.rds"),
@@ -70,11 +70,11 @@ escolaridad_censo_cdmx <- read_rds(files$escolaridad_censo_cdmx)
 # Periodos de registro ----------------------------------------------------
 
 registro_cbpcdmx_clean %>% 
-   group_by(año_desaparicion) %>%  
-   mutate(año_desaparicion = as.character(año_desaparicion),
-          año_desaparicion = case_when(año_desaparicion %in% 1966:2013 ~ "previo a 2013", 
-                                       T ~ año_desaparicion),
-          año_desaparicion = factor(año_desaparicion,
+   group_by(year_desaparicion) %>%  
+   mutate(year_desaparicion = as.character(year_desaparicion),
+          year_desaparicion = case_when(year_desaparicion %in% 1966:2013 ~ "previo a 2013", 
+                                       T ~ year_desaparicion),
+          year_desaparicion = factor(year_desaparicion,
                               levels = c("previo a 2013",
                                          "2014",
                                          "2015",
@@ -86,7 +86,7 @@ registro_cbpcdmx_clean %>%
                                          "2021"))) %>% 
    summarize(total=n()) %>% 
    na.omit() %>% 
-   ggplot(aes(año_desaparicion, total)) +
+   ggplot(aes(year_desaparicion, total)) +
    geom_col(fill = "#F85A3E") +
    geom_label(aes(label= total), family="Courier New") +
    theme_minimal(base_family = "Courier New") +
@@ -330,16 +330,15 @@ shp_cdmx <- shp_cdmx %>%
 
 
 cases_per_muni <- registro_cbpcdmx_clean %>%
-   group_by(clave_municipio_desp) %>%
-   count(clave_municipio_desp) %>% 
-   ungroup() %>% 
-   mutate(clave_municipio_desp = str_pad(clave_municipio_desp, width = 3, side = "left", pad = "0"))
+   group_by(cv_mun_desp) %>%
+   count(cv_mun_desp) %>% 
+   ungroup() 
 
 
 # Datos para mapa
 mapa_registro <- shp_cdmx %>%
    left_join(cases_per_muni,
-             by = c("CVE_MUN" = "clave_municipio_desp")) %>% 
+             by = c("CVE_MUN" = "cv_mun_desp")) %>% 
    mutate(tasa_desp = n*(100000/total_poblacion)) %>% 
    st_transform(mapa_registro, crs = "+proj=longlat +ellps=WGS72 +no_defs")
 
@@ -371,10 +370,20 @@ walk(devices, ~ ggsave(filename = file.path(paste0(files$mapa_desp_totales, .x))
 
 # tasas
 mapa_registro %>% 
-   bind_cols(centroides) %>% 
+      mutate(MUN = ifelse(MUN == "¡lvaro ObregÛn", "Álvaro Obregón",
+                          MUN),
+             MUN = ifelse(MUN == "Benito Ju·rez", "Benito Juárez",
+                          MUN),
+             MUN = ifelse(MUN == "Coyoac·n", "Coyoacán",
+                          MUN),
+             MUN = ifelse(MUN == "CuauhtÈmoc", "Cuauhtémoc",
+                          MUN),
+             MUN = ifelse(MUN == "Tl·huac", "Tláhuac",
+                          MUN)) %>% 
+      bind_cols(centroides) %>% 
    ggplot() +
    geom_sf(aes(geometry = geometry, fill = tasa_desp), size = 0.2, color = "black") +
-   geom_text(aes(X, Y, label = CVEGEO), size = 2) +
+   geom_text(aes(X, Y, label = MUN), size = 2) +
    scale_fill_continuous(low = "#ffeda0", high = "#f03b20", na.value = "white", name = "Tasa por cada 100 mil habitantes") +
    labs(title = "Tasa anual de desapariciones en CDMX por alcaldía",
         subtitle = "Casos observados por Comisión de Búsqueda de Personas de la ciudad") +

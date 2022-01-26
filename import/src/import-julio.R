@@ -1,8 +1,8 @@
 # Author: JRR
 # Maintainers: JRR, OE
-# Copyright:   2021, PDH-IBERO GPL v2 or later
+# Copyright:   2022, Data Cívica GPL v2 or later
 # ===========================================================
-# desp-cdmx/import/src/import.R
+# desp-cdmx/import/src/import-julio.R
 
 
 # Paquetes ----------------------------------------------------------------

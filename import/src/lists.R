@@ -1,5 +1,6 @@
-# Maintainers: JRR, OE ----
-# Copyright:   2021, PDH-IBERO GPL v2 or later
+# Author: JRR ----
+# Maintainers: JRR, OE 
+# Copyright:   2021, Data Cívica v2 or later
 # ===========================================================
 # desp-cdmx/import/src/lists.R
 
