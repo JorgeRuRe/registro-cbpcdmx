@@ -1,8 +1,3 @@
-# registro-cbpcdmx
-
-## Nombre del repositorio
-registro-cbpcdmx
-
 ## Descripción
 Este es un respositorio con los datos y el código para el análisis de las personas desaparecidas en la Ciudad de México, con base en la versión pública del registro de desaparición de la Comisión de Búsqueda de Personas de la CDMX (CBPCDMX). 
 
@@ -25,4 +20,3 @@ También se inlcuye una carpeta con el nombre registro-limpio donde las personas
 ## License
 2022, Data Cívica GPL v2 or later
 
-# Done. 
