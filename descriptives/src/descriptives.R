@@ -339,7 +339,21 @@ cases_per_muni <- registro_cbpcdmx_clean %>%
 mapa_registro <- shp_cdmx %>%
    left_join(cases_per_muni,
              by = c("CVE_MUN" = "cv_mun_desp")) %>% 
-   mutate(tasa_desp = n*(100000/total_poblacion)) %>% 
+   mutate(tasa_desp = n*(100000/total_poblacion),
+          tasa_quart = ntile(tasa_desp, 4),
+          tasa_quart = as.factor(tasa_quart),
+          quart_rangos = case_when(
+                tasa_quart == "1" ~ "7.88-15.97",
+                tasa_quart == "2" ~ "17.61-19.00",
+                tasa_quart == "3" ~ "19.17-22.44",
+                tasa_quart == "4" ~ "23.58-45.14"
+          ),
+          quart_rangos = factor(quart_rangos,
+                              levels = c("23.58-45.14",
+                                         "19.17-22.44",
+                                         "17.61-19.00",
+                                         "7.88-15.97"))
+          ) %>% 
    st_transform(mapa_registro, crs = "+proj=longlat +ellps=WGS72 +no_defs")
 
 
@@ -382,9 +396,12 @@ mapa_registro %>%
                           MUN)) %>% 
       bind_cols(centroides) %>% 
    ggplot() +
-   geom_sf(aes(geometry = geometry, fill = tasa_desp), size = 0.2, color = "black") +
+   geom_sf(aes(geometry = geometry, fill = quart_rangos), size = 0.2, color = "black") +
    geom_text(aes(X, Y, label = MUN), size = 2) +
-   scale_fill_continuous(low = "#ffeda0", high = "#f03b20", na.value = "white", name = "Tasa por cada 100 mil habitantes") +
+      scale_fill_manual(values= c("#63C132", "#9EE37D", "#AAEFDF", "#CFFCFF"),
+                        labels = c("23.58-45.14", "19.17-22.44", "17.61-19.00", "7.88-15.97"),
+                        name = "Tasa por cada 100 mil habitantes"
+                        ) +
    labs(title = "Tasa anual de desapariciones en CDMX por alcaldía",
         subtitle = "Casos observados por Comisión de Búsqueda de Personas de la ciudad") +
    theme_void() +
