@@ -153,10 +153,13 @@ p2 <- rnpdno_clean %>%
 ### join plots 
 p2 + p1 +
       plot_annotation(
-            title = "Perfiles de personas desaparecidas con base en su edad y sexo"
+            title = "Tasas de personas desaparecidas",
+            subtitle = "Según sexo y grupos de edad",
+            caption = "Fuente: Comisión Nacional de Búsqueda de Personas Desaparecidas y \n Comisión de Búsqueda de Personas de la CDMX"
       ) &
       theme(
-            plot.title = element_text(face = "bold", hjust = 0.5))
+            plot.title = element_text(face = "bold", hjust = 0.5),
+            plot.subtitle = element_text(face = "bold", hjust = 0.5))
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_ambos_png, .x)),
                        device = .x, width = 24, height = 14))
@@ -276,10 +279,13 @@ p4 <- registro_cbpcdmx_clean %>%
 
 p3 + p4 +
       plot_annotation(
-            title = "Perfiles de personas desaparecidas con base en su edad, sexo y estatus de localización"
+            title = "Tasas de personas desaparecidas",
+            subtitle = "Según sexo, grupos de edad y estatus de localización",
+            caption = "Fuente: Comisión Nacional de Búsqueda de Personas Desaparecidas y \n Comisión de Búsqueda de Personas de la CDMX"
       ) &
       theme(
-            plot.title = element_text(face = "bold", hjust = 0.5))
+            plot.title = element_text(face = "bold", hjust = 0.5),
+            plot.subtitle = element_text(face = "bold", hjust = 0.5))
 
 
 walk(devices, ~ ggsave(filename = file.path(paste0(files$perfiles_ambos_estatus_png, .x)),

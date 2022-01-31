@@ -240,7 +240,8 @@ registro_cbpcdmx_clean %>%
                          place = "centre", size = 12, face = "bold",
                          family = "Courier New Bold") +
       scale_fill_brewer(palette = "Set3") +
-      labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX") +
+      labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
+           caption = "Fuente: Comisión de Búsqueda de Personas de la CDMX") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
@@ -273,7 +274,8 @@ registro_cbpcdmx_clean %>%
       scale_fill_brewer(palette = "Set3") +
       facet_wrap(~ condicion_localizacion) +
       labs(title= "Escolaridad de personas desaparecidas registradas por la Comisión de Búsqueda de la CDMX",
-           subtitle = "Con base en su estatus de localización") +
+           subtitle = "Con base en su estatus de localización",
+           caption = "Fuente: Comisión de Búsqueda de Personas de la CDMX") +
       theme_minimal(base_family = "Courier New") +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
             plot.title = element_text(face = "bold", hjust = 0.5),
@@ -403,7 +405,8 @@ mapa_registro %>%
                         name = "Tasa por cada 100 mil habitantes"
                         ) +
    labs(title = "Tasa anual de desapariciones en CDMX por alcaldía",
-        subtitle = "Casos observados por Comisión de Búsqueda de Personas de la ciudad") +
+        subtitle = "Casos observados por Comisión de Búsqueda de Personas de la ciudad",
+        caption = "Fuente: Comisión de Búsqueda de Personas de la CDMX") +
    theme_void() +
    theme(plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
          plot.subtitle = element_text(hjust = 0.5, face = "bold", size = 10),
@@ -478,7 +481,8 @@ p2 <- registro_cbpcdmx_clean %>%
 patchwork <- p1 / p2 
 patchwork + 
    plot_annotation(
-   title = "Lugar de localización de las personas reportadas como desaparecidas \n ante la Comisión de Búsqueda de Personas de la CDMX"
+   title = "Lugar de localización de las personas reportadas como desaparecidas \n ante la Comisión de Búsqueda de Personas de la CDMX",
+   caption = "Fuente: Comisión de Búsqueda de Personas de la CDMX"
    ) &
    theme(plot.title = element_text(face = "bold", hjust = 0.5))
 
